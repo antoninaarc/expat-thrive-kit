@@ -11,19 +11,19 @@
     "logout": "Salir"
   },
   "landing": {
-    "hero_title": "Tu bienestar emocional como expat importa",
-    "hero_desc": "Herramientas psicológicas basadas en evidencia para acompañarte en tu proceso de adaptación cultural.",
+    "hero_title": "Prosperar como expat en los Países Bajos empieza aquí",
+    "hero_desc": "Herramientas psicológicas basadas en evidencia para navegar la cultura holandesa, superar la nostalgia y construir una vida plena en los Países Bajos.",
     "cta": "Empieza gratis",
     "get_started": "Comenzar",
-    "features_title": "Todo lo que necesitas",
-    "features_desc": "Un compañero digital diseñado específicamente para las necesidades emocionales de expats.",
+    "features_title": "Diseñado para expats en los Países Bajos",
+    "features_desc": "Desde el choque cultural de la franqueza holandesa hasta los inviernos oscuros, entendemos los desafíos únicos de la vida expat en Holanda.",
     "feature_tracker_title": "Tracker de Bienestar",
-    "feature_tracker_desc": "4 tests psicológicos validados: estrés, regulación emocional, adaptación cultural y balance vida-trabajo.",
+    "feature_tracker_desc": "Mide estrés, regulación emocional, adaptación a la vida holandesa y balance vida-trabajo con tests validados.",
     "feature_journal_title": "Diario Emocional",
-    "feature_journal_desc": "Registra tu estado de ánimo diario y detecta patrones en tu proceso de adaptación.",
+    "feature_journal_desc": "Procesa la franqueza holandesa, la melancolía del clima y los círculos sociales — detecta patrones en tu adaptación.",
     "feature_kit_title": "Kit de Emergencia",
-    "feature_kit_desc": "Ejercicios de respiración, grounding, CBT y mindfulness para momentos difíciles.",
-    "footer": "Hecho con cariño para la comunidad expat"
+    "feature_kit_desc": "Ejercicios de respiración, grounding y CBT para esos momentos cuando la gezelligheid se siente lejana.",
+    "footer": "Hecho con ❤️ para la comunidad expat en los Países Bajos"
   },
   "auth": {
     "subtitle": "Tu compañero de bienestar como expat",
