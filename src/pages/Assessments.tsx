@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -6,7 +6,8 @@ import { assessments, getScoreLabel } from "@/data/assessments";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { ClipboardCheck, ChevronRight, ArrowLeft, BarChart3 } from "lucide-react";
+import { ClipboardCheck, ChevronRight, ArrowLeft, BarChart3, Sparkles, Loader2 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 const Assessments = () => {
   const { user } = useAuth();
@@ -16,6 +17,8 @@ const Assessments = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showResult, setShowResult] = useState(false);
+  const [aiRecommendation, setAiRecommendation] = useState<string | null>(null);
+  const [loadingAi, setLoadingAi] = useState(false);
 
   const { data: history } = useQuery({
     queryKey: ["assessments-history", user?.id],
@@ -61,6 +64,25 @@ const Assessments = () => {
       const maxScore = assessment.questions.length * 4;
       saveMutation.mutate({ type: assessment.id, score, maxScore });
       setShowResult(true);
+      // Fetch AI recommendations
+      fetchAiRecommendation(assessment.id, score, maxScore);
+    }
+  };
+
+  const fetchAiRecommendation = async (type: string, score: number, maxScore: number) => {
+    setLoadingAi(true);
+    setAiRecommendation(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("ai-recommendations", {
+        body: { assessmentType: type, score, maxScore },
+      });
+      if (error) throw error;
+      setAiRecommendation(data.recommendation);
+    } catch (e: any) {
+      console.error("AI error:", e);
+      toast({ title: "No se pudieron generar recomendaciones", variant: "destructive" });
+    } finally {
+      setLoadingAi(false);
     }
   };
 
@@ -69,6 +91,8 @@ const Assessments = () => {
     setCurrentQ(0);
     setAnswers({});
     setShowResult(false);
+    setAiRecommendation(null);
+    setLoadingAi(false);
   };
 
   // Show result
@@ -89,6 +113,34 @@ const Assessments = () => {
           </div>
           <p className="text-muted-foreground">{result.advice}</p>
         </div>
+
+        {/* AI Recommendations */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="glass rounded-2xl p-6 text-left"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles className="w-5 h-5 text-warm" />
+            <h3 className="font-display text-lg text-foreground">Recomendaciones personalizadas</h3>
+          </div>
+          {loadingAi ? (
+            <div className="flex items-center gap-2 justify-center py-6 text-muted-foreground">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span className="text-sm">Generando recomendaciones con IA...</span>
+            </div>
+          ) : aiRecommendation ? (
+            <div className="prose prose-sm max-w-none text-muted-foreground [&_strong]:text-foreground [&_h1]:font-display [&_h2]:font-display [&_h3]:font-display">
+              <ReactMarkdown>{aiRecommendation}</ReactMarkdown>
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground text-center py-4">
+              No se pudieron generar recomendaciones. Intenta de nuevo más tarde.
+            </p>
+          )}
+        </motion.div>
+
         <Button onClick={resetTest}>Volver a Tests</Button>
       </motion.div>
     );
