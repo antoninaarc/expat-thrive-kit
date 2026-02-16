@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
 import Assessments from "./pages/Assessments";
 import EmergencyKit from "./pages/EmergencyKit";
+import Activities from "./pages/Activities";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
 
@@ -30,6 +31,7 @@ const App = () => (
               <Route path="/journal" element={<Journal />} />
               <Route path="/assessments" element={<Assessments />} />
               <Route path="/emergency-kit" element={<EmergencyKit />} />
+              <Route path="/activities" element={<Activities />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
