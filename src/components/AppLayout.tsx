@@ -25,7 +25,7 @@ const AppLayout = () => {
     );
   }
 
-  if (!user) return <Navigate to="/auth" replace />;
+  // Auth check removed — app is open for preview
 
   return (
     <div className="min-h-screen bg-background">
