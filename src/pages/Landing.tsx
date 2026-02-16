@@ -22,7 +22,7 @@ const Landing = () => {
           <div className="w-9 h-9 rounded-xl gradient-calm flex items-center justify-center">
             <Leaf className="w-5 h-5 text-primary-foreground" />
           </div>
-          <span className="font-display text-xl text-foreground">Equilibria</span>
+          <span className="font-display text-xl text-foreground">Expat Rooted</span>
         </div>
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
