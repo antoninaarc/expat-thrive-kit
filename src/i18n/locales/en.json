@@ -11,19 +11,19 @@
     "logout": "Logout"
   },
   "landing": {
-    "hero_title": "Your emotional wellbeing as an expat matters",
-    "hero_desc": "Evidence-based psychological tools to support your cultural adaptation journey.",
+    "hero_title": "Thriving as an expat in the Netherlands starts here",
+    "hero_desc": "Evidence-based psychological tools to help you navigate Dutch culture, overcome homesickness, and build a fulfilling life in the Netherlands.",
     "cta": "Start for free",
     "get_started": "Get Started",
-    "features_title": "Everything you need",
-    "features_desc": "A digital companion designed specifically for the emotional needs of expats.",
+    "features_title": "Built for expats in the Netherlands",
+    "features_desc": "From directness culture shock to dark winters, we understand the unique challenges of expat life in the Netherlands.",
     "feature_tracker_title": "Wellness Tracker",
-    "feature_tracker_desc": "4 validated psychological tests: stress, emotional regulation, cultural adaptation, and work-life balance.",
+    "feature_tracker_desc": "Track stress, emotional regulation, cultural adaptation to Dutch life, and work-life balance with validated tests.",
     "feature_journal_title": "Emotional Journal",
-    "feature_journal_desc": "Track your daily mood and detect patterns in your adaptation process.",
+    "feature_journal_desc": "Process the Dutch directness, weather blues, and social circles — detect patterns in your adaptation journey.",
     "feature_kit_title": "Emergency Kit",
-    "feature_kit_desc": "Breathing exercises, grounding, CBT, and mindfulness for difficult moments.",
-    "footer": "Made with love for the expat community"
+    "feature_kit_desc": "Breathing, grounding, and CBT exercises for those moments when gezelligheid feels out of reach.",
+    "footer": "Made with ❤️ for the expat community in the Netherlands"
   },
   "auth": {
     "subtitle": "Your wellness companion as an expat",
