@@ -9,12 +9,28 @@ import dashboardHero from "@/assets/dashboard-hero.jpg";
 
 const moodEmojis = ["😢", "😟", "😐", "🙂", "😄"];
 
+const now = new Date();
+const mockEntries = [
+  { id: "m1", mood: 4, created_at: new Date(now.getTime() - 0 * 86400000).toISOString() },
+  { id: "m2", mood: 3, created_at: new Date(now.getTime() - 1 * 86400000).toISOString() },
+  { id: "m3", mood: 5, created_at: new Date(now.getTime() - 2 * 86400000).toISOString() },
+  { id: "m4", mood: 3, created_at: new Date(now.getTime() - 3 * 86400000).toISOString() },
+  { id: "m5", mood: 4, created_at: new Date(now.getTime() - 4 * 86400000).toISOString() },
+];
+
+const mockAssessments = [
+  { id: "a1", assessment_type: "stress", score: 18, max_score: 40, created_at: new Date(now.getTime() - 1 * 86400000).toISOString() },
+  { id: "a2", assessment_type: "emotional_regulation", score: 28, max_score: 40, created_at: new Date(now.getTime() - 3 * 86400000).toISOString() },
+  { id: "a3", assessment_type: "cultural_adaptation", score: 30, max_score: 40, created_at: new Date(now.getTime() - 5 * 86400000).toISOString() },
+  { id: "a4", assessment_type: "work_life_balance", score: 22, max_score: 40, created_at: new Date(now.getTime() - 7 * 86400000).toISOString() },
+];
+
 const Dashboard = () => {
   const { user } = useAuth();
   const { t, i18n } = useTranslation();
   const locale = i18n.language?.startsWith("en") ? "en" : "es";
 
-  const { data: recentEntries } = useQuery({
+  const { data: dbEntries } = useQuery({
     queryKey: ["recent-journal", user?.id],
     queryFn: async () => {
       const { data } = await supabase.from("journal_entries").select("*").order("created_at", { ascending: false }).limit(5);
@@ -23,7 +39,7 @@ const Dashboard = () => {
     enabled: !!user,
   });
 
-  const { data: recentAssessments } = useQuery({
+  const { data: dbAssessments } = useQuery({
     queryKey: ["recent-assessments", user?.id],
     queryFn: async () => {
       const { data } = await supabase.from("assessment_results").select("*").order("created_at", { ascending: false }).limit(4);
@@ -40,6 +56,9 @@ const Dashboard = () => {
     },
     enabled: !!user,
   });
+
+  const recentEntries = (dbEntries && dbEntries.length > 0) ? dbEntries : mockEntries;
+  const recentAssessments = (dbAssessments && dbAssessments.length > 0) ? dbAssessments : mockAssessments;
 
   const cards = [
     { to: "/journal", icon: BookHeart, title: t("dashboard.journal_title"), desc: t("dashboard.journal_desc"), gradient: "from-[hsl(var(--warm))] to-[hsl(var(--coral))]", bg: "bg-warm-light" },
@@ -115,7 +134,7 @@ const Dashboard = () => {
       </motion.div>
 
       {/* Recent Mood */}
-      {recentEntries && recentEntries.length > 0 && (
+      {recentEntries.length > 0 && (
         <motion.div variants={item} className="glass rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -145,7 +164,7 @@ const Dashboard = () => {
       )}
 
       {/* Recent Assessments */}
-      {recentAssessments && recentAssessments.length > 0 && (
+      {recentAssessments.length > 0 && (
         <motion.div variants={item} className="glass rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
