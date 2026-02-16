@@ -35,7 +35,7 @@ const AppLayout = () => {
             <div className="w-8 h-8 rounded-lg gradient-calm flex items-center justify-center">
               <Leaf className="w-4 h-4 text-primary-foreground" />
             </div>
-            <span className="font-display text-lg text-foreground hidden sm:block">Equilibria</span>
+            <span className="font-display text-lg text-foreground hidden sm:block">Expat Rooted</span>
           </Link>
 
           <nav className="flex items-center gap-1">
