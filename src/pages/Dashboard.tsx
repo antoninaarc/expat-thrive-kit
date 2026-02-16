@@ -1,10 +1,11 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookHeart, ClipboardCheck, ShieldAlert, TrendingUp, Smile } from "lucide-react";
+import { BookHeart, ClipboardCheck, ShieldAlert, TrendingUp, Smile, ArrowRight, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import dashboardHero from "@/assets/dashboard-hero.jpg";
 
 const moodEmojis = ["😢", "😟", "😐", "🙂", "😄"];
 
@@ -41,9 +42,9 @@ const Dashboard = () => {
   });
 
   const cards = [
-    { to: "/journal", icon: BookHeart, title: t("dashboard.journal_title"), desc: t("dashboard.journal_desc"), color: "bg-warm-light text-warm" },
-    { to: "/assessments", icon: ClipboardCheck, title: t("dashboard.tests_title"), desc: t("dashboard.tests_desc"), color: "bg-calm-light text-calm" },
-    { to: "/emergency-kit", icon: ShieldAlert, title: t("dashboard.sos_title"), desc: t("dashboard.sos_desc"), color: "bg-coral-light text-coral" },
+    { to: "/journal", icon: BookHeart, title: t("dashboard.journal_title"), desc: t("dashboard.journal_desc"), gradient: "from-[hsl(var(--warm))] to-[hsl(var(--coral))]", bg: "bg-warm-light" },
+    { to: "/assessments", icon: ClipboardCheck, title: t("dashboard.tests_title"), desc: t("dashboard.tests_desc"), gradient: "from-[hsl(var(--calm))] to-[hsl(var(--sage))]", bg: "bg-calm-light" },
+    { to: "/emergency-kit", icon: ShieldAlert, title: t("dashboard.sos_title"), desc: t("dashboard.sos_desc"), gradient: "from-[hsl(var(--coral))] to-[hsl(var(--mood-2))]", bg: "bg-coral-light" },
   ];
 
   const typeLabels: Record<string, string> = {
@@ -53,58 +54,125 @@ const Dashboard = () => {
     work_life_balance: t("dashboard.balance"),
   };
 
-  const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
-  const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
+  const container = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
+  const item = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } } };
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
-      <motion.div variants={item}>
-        <h1 className="text-3xl mb-1">{t("dashboard.hello", { name: profile?.display_name?.split(" ")[0] || "Expat" })}</h1>
-        <p className="text-muted-foreground">{t("dashboard.how_are_you")}</p>
+      {/* Hero Banner */}
+      <motion.div
+        variants={item}
+        className="relative rounded-3xl overflow-hidden"
+      >
+        <img
+          src={dashboardHero}
+          alt="Expat wellness illustration"
+          className="w-full h-48 sm:h-56 object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent" />
+        <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="w-4 h-4 text-[hsl(var(--warm))]" />
+              <span className="text-sm font-medium text-[hsl(var(--warm))]">Expat Rooted</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl text-white mb-1">
+              {t("dashboard.hello", { name: profile?.display_name?.split(" ")[0] || "Expat" })}
+            </h1>
+            <p className="text-white/80 text-sm sm:text-base max-w-md">
+              {t("dashboard.how_are_you")}
+            </p>
+          </motion.div>
+        </div>
       </motion.div>
 
+      {/* Quick Actions */}
       <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {cards.map(({ to, icon: Icon, title, desc, color }) => (
-          <Link key={to} to={to} className="group glass rounded-2xl p-5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-            <div className={`w-10 h-10 rounded-xl ${color} flex items-center justify-center mb-3`}><Icon className="w-5 h-5" /></div>
-            <h3 className="font-display text-lg text-foreground mb-1">{title}</h3>
-            <p className="text-sm text-muted-foreground">{desc}</p>
-          </Link>
+        {cards.map(({ to, icon: Icon, title, desc, gradient, bg }, index) => (
+          <motion.div
+            key={to}
+            whileHover={{ y: -6, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <Link to={to} className="group block glass rounded-2xl p-5 hover:shadow-xl transition-shadow duration-300 h-full">
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <Icon className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-display text-lg text-foreground mb-1">{title}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{desc}</p>
+              <div className="flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span>{locale === "es" ? "Explorar" : "Explore"}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </motion.div>
 
+      {/* Recent Mood */}
       {recentEntries && recentEntries.length > 0 && (
         <motion.div variants={item} className="glass rounded-2xl p-5">
-          <div className="flex items-center gap-2 mb-4">
-            <Smile className="w-5 h-5 text-warm" />
-            <h2 className="font-display text-xl text-foreground">{t("dashboard.recent_mood")}</h2>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Smile className="w-5 h-5 text-[hsl(var(--warm))]" />
+              <h2 className="font-display text-xl text-foreground">{t("dashboard.recent_mood")}</h2>
+            </div>
+            <Link to="/journal" className="text-sm text-primary hover:underline">
+              {locale === "es" ? "Ver todo" : "See all"}
+            </Link>
           </div>
-          <div className="flex gap-3">
-            {recentEntries.map((entry: any) => (
-              <div key={entry.id} className="text-center">
-                <div className="text-2xl mb-1">{moodEmojis[entry.mood - 1]}</div>
+          <div className="flex gap-4">
+            {recentEntries.map((entry: any, i: number) => (
+              <motion.div
+                key={entry.id}
+                className="text-center flex-1"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 + i * 0.1 }}
+                whileHover={{ scale: 1.2 }}
+              >
+                <div className="text-3xl mb-1 cursor-default">{moodEmojis[entry.mood - 1]}</div>
                 <div className="text-xs text-muted-foreground">{new Date(entry.created_at).toLocaleDateString(locale, { weekday: "short" })}</div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
       )}
 
+      {/* Recent Assessments */}
       {recentAssessments && recentAssessments.length > 0 && (
         <motion.div variants={item} className="glass rounded-2xl p-5">
-          <div className="flex items-center gap-2 mb-4">
-            <TrendingUp className="w-5 h-5 text-calm" />
-            <h2 className="font-display text-xl text-foreground">{t("dashboard.recent_tests")}</h2>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <h2 className="font-display text-xl text-foreground">{t("dashboard.recent_tests")}</h2>
+            </div>
+            <Link to="/assessments" className="text-sm text-primary hover:underline">
+              {locale === "es" ? "Ver todo" : "See all"}
+            </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {recentAssessments.map((result: any) => {
+            {recentAssessments.map((result: any, i: number) => {
               const pct = Math.round((result.score / result.max_score) * 100);
+              const color = pct >= 75 ? "text-[hsl(var(--mood-5))]" : pct >= 50 ? "text-[hsl(var(--warm))]" : "text-[hsl(var(--coral))]";
               return (
-                <div key={result.id} className="bg-muted rounded-xl p-3 text-center">
+                <motion.div
+                  key={result.id}
+                  className="bg-muted rounded-xl p-4 text-center hover:bg-muted/80 transition-colors cursor-default"
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
+                >
                   <div className="text-sm font-medium text-foreground">{typeLabels[result.assessment_type] || result.assessment_type}</div>
-                  <div className="text-2xl font-bold text-primary mt-1">{pct}%</div>
-                  <div className="text-xs text-muted-foreground">{new Date(result.created_at).toLocaleDateString(locale)}</div>
-                </div>
+                  <div className={`text-2xl font-bold mt-1 ${color}`}>{pct}%</div>
+                  <div className="text-xs text-muted-foreground mt-1">{new Date(result.created_at).toLocaleDateString(locale)}</div>
+                </motion.div>
               );
             })}
           </div>
