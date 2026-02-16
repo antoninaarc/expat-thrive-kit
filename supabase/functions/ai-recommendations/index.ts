@@ -9,7 +9,8 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { assessmentType, score, maxScore, answers } = await req.json();
+    const { assessmentType, score, maxScore, language } = await req.json();
+    const lang = language === "en" ? "English" : "Spanish";
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
@@ -22,20 +23,19 @@ serve(async (req) => {
       work_life_balance: "balance vida-trabajo como expatriado. Un porcentaje más alto indica mejor equilibrio.",
     };
 
-    const systemPrompt = `Eres un psicólogo especializado en bienestar de expatriados. Hablas español de forma cálida, empática y profesional. 
-Proporcionas recomendaciones personalizadas basadas en resultados de tests psicológicos.
-Tus recomendaciones deben ser:
-- Prácticas y accionables (3-5 recomendaciones específicas)
-- Basadas en evidencia (ACT, CBT, DBT, mindfulness)
-- Sensibles al contexto de vida expatriada
-- Escritas en un tono amable y esperanzador
-- Breves pero útiles (máximo 300 palabras total)
-Usa emojis moderadamente para hacer el texto más amigable.
-Estructura tu respuesta con un párrafo de resumen inicial y luego las recomendaciones numeradas.`;
+    const systemPrompt = `You are a psychologist specialized in expat wellbeing. You MUST respond in ${lang}.
+You provide personalized recommendations based on psychological test results.
+Your recommendations must be:
+- Practical and actionable (3-5 specific recommendations)
+- Evidence-based (ACT, CBT, DBT, mindfulness)
+- Sensitive to the expat life context
+- Written in a warm and hopeful tone
+- Brief but useful (max 300 words total)
+Use emojis moderately. Structure with an initial summary paragraph then numbered recommendations.`;
 
-    const userPrompt = `El usuario obtuvo un ${pct}% en el test de ${typeDescriptions[assessmentType] || assessmentType}.
-Puntuación: ${score} de ${maxScore} puntos posibles.
-Por favor, genera recomendaciones personalizadas para mejorar su bienestar en esta área.`;
+    const userPrompt = `The user scored ${pct}% on the ${typeDescriptions[assessmentType] || assessmentType} test.
+Score: ${score} out of ${maxScore} possible points.
+Please generate personalized recommendations to improve their wellbeing in this area. Respond in ${lang}.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
