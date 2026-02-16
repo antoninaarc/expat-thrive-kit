@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Brain, CloudRain, Users } from "lucide-react";
+import { Brain, CloudRain, Users, Ghost, Crown, Globe } from "lucide-react";
 
 interface Flashcard {
   id: string;
@@ -65,6 +65,57 @@ const flashcards: Flashcard[] = [
     ],
     gradient: "from-amber-500/20 to-orange-500/10",
     accentColor: "text-amber-600 dark:text-amber-400",
+  },
+  {
+    id: "soledad",
+    icon: <Ghost className="w-8 h-8" />,
+    category: "Soledad",
+    frontTitle: "¿Te sientes invisible aquí?",
+    frontMessage: "Construir un círculo social desde cero es agotador. La soledad del expat es real: estás rodeado de gente pero sin nadie que te conozca de verdad. Eso cambiará.",
+    backTitle: "Ejercicio: Puente de Conexión 🌉",
+    backExercise: [
+      "Piensa en una persona aquí con quien hayas tenido una conversación agradable.",
+      "Envíale un mensaje corto: '¡Hola! Me acordé de ti, ¿cómo estás?'",
+      "Si no tienes a nadie aún, busca un evento local esta semana (meetup, clase, café).",
+      "Comprométete a ir sin expectativas, solo a estar presente.",
+      "Recuerda: una sola conexión genuina puede cambiar todo.",
+    ],
+    gradient: "from-violet-500/20 to-fuchsia-500/10",
+    accentColor: "text-violet-600 dark:text-violet-400",
+  },
+  {
+    id: "impostor",
+    icon: <Crown className="w-8 h-8" />,
+    category: "Síndrome del Impostor",
+    frontTitle: "¿Sientes que no perteneces?",
+    frontMessage: "Hablar otro idioma, no entender las reglas no escritas, sentir que todos saben algo que tú no… No eres un fraude. Estás aprendiendo un mundo entero desde cero.",
+    backTitle: "Ejercicio: Inventario de Logros 🏆",
+    backExercise: [
+      "Escribe 5 cosas difíciles que has logrado desde que llegaste.",
+      "Incluye cosas 'pequeñas': ir al médico en otro idioma, hacer un trámite, cocinar con ingredientes nuevos.",
+      "Lee tu lista en voz alta y di: 'Yo hice todo esto.'",
+      "Guarda esta lista en tu teléfono para los días difíciles.",
+      "Agrega un nuevo logro cada semana.",
+    ],
+    gradient: "from-rose-500/20 to-pink-500/10",
+    accentColor: "text-rose-600 dark:text-rose-400",
+  },
+  {
+    id: "choque-cultural",
+    icon: <Globe className="w-8 h-8" />,
+    category: "Choque Cultural",
+    frontTitle: "¿Todo te parece raro aquí?",
+    frontMessage: "La directheid holandesa, las cenas a las 6pm, la agenda para todo… No estás loco/a. Tu cerebro está procesando miles de reglas nuevas al mismo tiempo. Es normal sentirse perdido/a.",
+    backTitle: "Ejercicio: Diario Cultural 📓",
+    backExercise: [
+      "Escribe algo que te haya chocado hoy de la cultura local.",
+      "Pregúntate: '¿Por qué me molesta? ¿Qué valor mío está siendo retado?'",
+      "Ahora busca el lado positivo o la lógica detrás de esa costumbre.",
+      "Habla con alguien local y pregúntale por qué hacen las cosas así.",
+      "Recuerda: entender no significa aceptar todo, pero sí te da paz.",
+    ],
+    gradient: "from-emerald-500/20 to-green-500/10",
+    accentColor: "text-emerald-600 dark:text-emerald-400",
   },
 ];
 
