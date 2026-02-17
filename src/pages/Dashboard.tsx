@@ -103,7 +103,7 @@ const Dashboard = () => {
 
   // Calculate streak
   const streak = (() => {
-    if (!checkins || checkins.length === 0) return 3; // mock
+    if (!checkins || checkins.length === 0) return 0;
     let count = 0;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -119,8 +119,8 @@ const Dashboard = () => {
     return count;
   })();
 
-  const recentEntries = (dbEntries && dbEntries.length > 0) ? dbEntries : mockEntries;
-  const recentAssessments = (dbAssessments && dbAssessments.length > 0) ? dbAssessments : mockAssessments;
+  const recentEntries = dbEntries || [];
+  const recentAssessments = dbAssessments || [];
   const programs = activePrograms || [];
 
   const typeLabels: Record<string, string> = {
@@ -196,37 +196,47 @@ const Dashboard = () => {
           </div>
           <Link to="/journal" className="text-xs text-primary hover:underline">{t("dashboard.see_all")}</Link>
         </div>
-        <div className="flex items-end gap-2 justify-between">
-          {recentEntries.slice(0, 7).reverse().map((entry: any, i: number) => {
-            const h = (entry.mood / 5) * maxBarH;
-            const colors = [
-              "bg-[hsl(var(--mood-1))]",
-              "bg-[hsl(var(--mood-2))]",
-              "bg-[hsl(var(--mood-3))]",
-              "bg-[hsl(var(--mood-4))]",
-              "bg-[hsl(var(--mood-5))]",
-            ];
-            return (
-              <motion.div
-                key={entry.id}
-                className="flex-1 flex flex-col items-center gap-1"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
-                style={{ originY: 1 }}
-              >
-                <span className="text-sm">{moodEmojis[entry.mood - 1]}</span>
-                <div
-                  className={`w-full rounded-lg ${colors[entry.mood - 1]} transition-all`}
-                  style={{ height: h, minHeight: 6 }}
-                />
-                <span className="text-[10px] text-muted-foreground">
-                  {new Date(entry.created_at).toLocaleDateString(locale, { weekday: "narrow" })}
-                </span>
-              </motion.div>
-            );
-          })}
-        </div>
+        {recentEntries.length > 0 ? (
+          <div className="flex items-end gap-2 justify-between">
+            {recentEntries.slice(0, 7).reverse().map((entry: any, i: number) => {
+              const h = (entry.mood / 5) * maxBarH;
+              const colors = [
+                "bg-[hsl(var(--mood-1))]",
+                "bg-[hsl(var(--mood-2))]",
+                "bg-[hsl(var(--mood-3))]",
+                "bg-[hsl(var(--mood-4))]",
+                "bg-[hsl(var(--mood-5))]",
+              ];
+              return (
+                <motion.div
+                  key={entry.id}
+                  className="flex-1 flex flex-col items-center gap-1"
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: 1 }}
+                  transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
+                  style={{ originY: 1 }}
+                >
+                  <span className="text-sm">{moodEmojis[entry.mood - 1]}</span>
+                  <div
+                    className={`w-full rounded-lg ${colors[entry.mood - 1]} transition-all`}
+                    style={{ height: h, minHeight: 6 }}
+                  />
+                  <span className="text-[10px] text-muted-foreground">
+                    {new Date(entry.created_at).toLocaleDateString(locale, { weekday: "narrow" })}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
+        ) : (
+          <Link to="/journal" className="block">
+            <div className="text-center py-6">
+              <BookHeart className="w-8 h-8 text-muted-foreground/30 mx-auto mb-2" />
+              <p className="text-sm text-muted-foreground">{t("dashboard.no_mood_data")}</p>
+              <span className="text-xs text-primary font-medium">{t("dashboard.start_journaling")} →</span>
+            </div>
+          </Link>
+        )}
       </motion.div>
 
       {/* Active Programs */}
@@ -273,7 +283,7 @@ const Dashboard = () => {
       </motion.div>
 
       {/* Recent Assessments */}
-      {recentAssessments.length > 0 && (
+      {recentAssessments.length > 0 && user && (
         <motion.div variants={item} className="glass rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">

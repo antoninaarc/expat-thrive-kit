@@ -81,7 +81,9 @@
     "see_all": "See all",
     "explore": "Explore",
     "continue": "Continue",
-    "completed": "Completed ✓"
+    "completed": "Completed ✓",
+    "no_mood_data": "No mood entries yet",
+    "start_journaling": "Start journaling"
   },
   "journal": {
     "title": "Emotional Journal",
