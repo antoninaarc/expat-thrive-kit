@@ -16,9 +16,15 @@ const CATEGORY_EMOJIS: Record<string, string> = {
 interface Article {
   id: string;
   title: string;
+  title_en: string;
+  title_es: string;
   slug: string;
   summary: string;
+  summary_en: string;
+  summary_es: string;
   content: string;
+  content_en: string;
+  content_es: string;
   category: string;
   cover_image_url: string | null;
   author: string;
@@ -30,7 +36,8 @@ const Library = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language?.startsWith("en") ? "en" : "es";
 
   const CAT_I18N: Record<string, string> = {
     all: "library.cat_all", mente: "library.cat_mente", emociones: "library.cat_emociones",
@@ -38,6 +45,10 @@ const Library = () => {
     crecimiento: "library.cat_crecimiento", psicologia: "library.cat_psicologia",
   };
   const getCatLabel = (key: string) => t(CAT_I18N[key] || key);
+
+  const localTitle = (a: Article) => (locale === "en" ? a.title_en || a.title : a.title_es || a.title);
+  const localSummary = (a: Article) => (locale === "en" ? a.summary_en || a.summary : a.summary_es || a.summary);
+  const localContent = (a: Article) => (locale === "en" ? a.content_en || a.content : a.content_es || a.content);
 
   const { data: articles = [], isLoading } = useQuery({
     queryKey: ["articles"],
@@ -56,8 +67,8 @@ const Library = () => {
     const matchCategory = activeCategory === "all" || a.category === activeCategory;
     const matchSearch =
       !searchQuery ||
-      a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      a.summary.toLowerCase().includes(searchQuery.toLowerCase());
+      localTitle(a).toLowerCase().includes(searchQuery.toLowerCase()) ||
+      localSummary(a).toLowerCase().includes(searchQuery.toLowerCase());
     return matchCategory && matchSearch;
   });
 
@@ -81,7 +92,7 @@ const Library = () => {
             {getCatLabel(selectedArticle.category)}
           </span>
           <h1 className="text-3xl font-display font-bold text-foreground mt-2">
-            {selectedArticle.title}
+            {localTitle(selectedArticle)}
           </h1>
           <div className="flex items-center gap-3 mt-2 text-sm text-muted-foreground">
             <span>{selectedArticle.author}</span>
@@ -101,7 +112,7 @@ const Library = () => {
         )}
 
         <article className="prose prose-neutral dark:prose-invert max-w-none">
-          <ReactMarkdown>{selectedArticle.content}</ReactMarkdown>
+          <ReactMarkdown>{localContent(selectedArticle)}</ReactMarkdown>
         </article>
       </motion.div>
     );
@@ -185,10 +196,10 @@ const Library = () => {
                     {getCatLabel(article.category)}
                   </span>
                   <h3 className="text-base font-display font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {article.title}
+                    {localTitle(article)}
                   </h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">
-                    {article.summary}
+                    {localSummary(article)}
                   </p>
                   <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="w-3 h-3" /> {article.read_time_minutes} min
