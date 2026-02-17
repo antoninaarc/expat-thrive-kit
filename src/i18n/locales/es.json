@@ -5,6 +5,7 @@
   },
   "nav": {
     "home": "Inicio",
+    "routine": "Rutina",
     "journal": "Diario",
     "tests": "Tests",
     "sos": "Kit SOS",
@@ -192,6 +193,31 @@
       "478_desc": "Técnica de relajación profunda para momentos de ansiedad",
       "478_steps": ["Inhala por la nariz contando hasta 4", "Mantén el aire contando hasta 7", "Exhala por la boca contando hasta 8", "Repite 3-4 ciclos"]
     }
+  },
+  "routine": {
+    "title": "Rutina Diaria",
+    "subtitle": "Tu ritual de bienestar de cada día",
+    "streak": "días seguidos",
+    "step_mood": "Mood",
+    "step_thought": "Reflexión",
+    "step_exercise": "Ejercicio",
+    "prompt_label": "Reflexión del día",
+    "how_feel": "¿Cómo te sientes hoy?",
+    "thought_label": "Tu pensamiento del día",
+    "thought_placeholder": "Responde al prompt o escribe lo que sientes...",
+    "exercise_label": "Ejercicio rápido (2 min)",
+    "exercise_breathing_title": "Respirar",
+    "exercise_grounding_title": "Grounding",
+    "exercise_gratitude_title": "Gratitud",
+    "exercise_breathing": "Inhala 4s... mantén 4s... exhala 4s... Repite.",
+    "exercise_grounding": "Nombra 5 cosas que ves, 4 que tocas, 3 que oyes...",
+    "exercise_gratitude": "Piensa en 3 cosas por las que estás agradecido/a hoy.",
+    "exercise_done": "¡Ejercicio completado!",
+    "save": "Guardar check-in",
+    "saving": "Guardando...",
+    "saved": "✨ Check-in guardado",
+    "done_title": "¡Ya hiciste tu check-in hoy!",
+    "done_desc": "Vuelve mañana para mantener tu racha. 🔥"
   },
   "language": {
     "switch": "Idioma",
