@@ -51,9 +51,10 @@ const AppLayout = () => {
     );
   }
 
-  if (!user) {
-    return <Navigate to="/auth" replace />;
-  }
+  // Auth requirement temporarily disabled for demo
+  // if (!user) {
+  //   return <Navigate to="/auth" replace />;
+  // }
 
   return (
     <div className="min-h-screen bg-background">
