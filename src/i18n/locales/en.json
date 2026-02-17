@@ -449,5 +449,25 @@
     "switch": "Language",
     "en": "English",
     "es": "Español"
+  },
+  "roadmap": {
+    "title": "My Journey",
+    "subtitle": "Your personal wellness path. Each step brings you closer to feeling at home.",
+    "progress": "Your progress",
+    "phases_done": "completed",
+    "current": "Current",
+    "phase_routine": "First daily routine",
+    "phase_routine_desc": "Do your first mood check-in and quick exercise.",
+    "phase_journal": "Active emotional journal",
+    "phase_journal_desc": "Write at least 3 journal entries to detect patterns.",
+    "phase_assessment": "Know yourself better",
+    "phase_assessment_desc": "Complete your first wellness test to know where you stand.",
+    "phase_program": "Start a program",
+    "phase_program_desc": "Choose a themed program and begin your step-by-step transformation.",
+    "phase_emergency": "Emergency kit",
+    "phase_emergency_desc": "Explore breathing and grounding tools whenever you need them.",
+    "phase_mastery": "Emotional mastery",
+    "phase_mastery_desc": "7-day streak, 7+ journal entries, and 4 tests completed.",
+    "motivation": "Every small step counts. You don't need to be perfect, just consistent. 🌱"
   }
 }

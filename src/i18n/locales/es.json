@@ -449,5 +449,25 @@
     "switch": "Idioma",
     "en": "English",
     "es": "Español"
+  },
+  "roadmap": {
+    "title": "Mi Camino",
+    "subtitle": "Tu ruta personal de bienestar. Cada paso te acerca a sentirte en casa.",
+    "progress": "Tu progreso",
+    "phases_done": "completadas",
+    "current": "Actual",
+    "phase_routine": "Primera rutina diaria",
+    "phase_routine_desc": "Haz tu primer check-in de ánimo y ejercicio rápido.",
+    "phase_journal": "Diario emocional activo",
+    "phase_journal_desc": "Escribe al menos 3 entradas en tu diario para detectar patrones.",
+    "phase_assessment": "Conócete mejor",
+    "phase_assessment_desc": "Completa tu primer test de bienestar para saber dónde estás.",
+    "phase_program": "Empieza un programa",
+    "phase_program_desc": "Elige un programa temático y comienza tu transformación paso a paso.",
+    "phase_emergency": "Kit de emergencia",
+    "phase_emergency_desc": "Explora las herramientas de respiración y grounding cuando lo necesites.",
+    "phase_mastery": "Maestría emocional",
+    "phase_mastery_desc": "7 días de racha, 7+ entradas de diario y 4 tests completados.",
+    "motivation": "Cada pequeño paso cuenta. No necesitas ser perfecto/a, solo constante. 🌱"
   }
 }

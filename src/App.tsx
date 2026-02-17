@@ -16,6 +16,7 @@ import Library from "./pages/Library";
 import Programs from "./pages/Programs";
 import Admin from "./pages/Admin";
 import Feedback from "./pages/Feedback";
+import Roadmap from "./pages/Roadmap";
 import AppLayout from "./components/AppLayout";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
@@ -45,6 +46,7 @@ const App = () => (
               <Route path="/programs" element={<Programs />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/feedback" element={<Feedback />} />
+              <Route path="/roadmap" element={<Roadmap />} />
               <Route path="/admin" element={<Admin />} />
             </Route>
             <Route path="*" element={<NotFound />} />
