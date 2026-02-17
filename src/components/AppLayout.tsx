@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
-import { Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert, Library, BookOpen, LogOut, Sun } from "lucide-react";
+import { Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert, Library, Target, BookOpen, LogOut, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -17,6 +17,7 @@ const AppLayout = () => {
     { to: "/assessments", icon: ClipboardCheck, label: t("nav.tests") },
     { to: "/emergency-kit", icon: ShieldAlert, label: t("nav.sos") },
     { to: "/library", icon: Library, label: "Biblioteca" },
+    { to: "/programs", icon: Target, label: "Programas" },
     { to: "/resources", icon: BookOpen, label: "Recursos" },
   ];
 
