@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { ShieldCheck, Plus, Trash2, Save, BookOpen, Lightbulb, MessageSquare, Layers } from "lucide-react";
+import { ShieldCheck, Plus, Trash2, Save, BookOpen, Lightbulb, MessageSquare, Layers, MessageSquareHeart } from "lucide-react";
 import { Navigate } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 
@@ -465,6 +465,59 @@ const ProgramsTab = () => {
   );
 };
 
+/* ───────────── FEEDBACK TAB ───────────── */
+const FeedbackTab = () => {
+  const { data: feedbackItems, isLoading } = useQuery({
+    queryKey: ["admin-feedback"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("feedback")
+        .select("*")
+        .order("created_at", { ascending: false });
+      return data || [];
+    },
+  });
+
+  const categoryColors: Record<string, string> = {
+    suggestion: "bg-blue-100 text-blue-700",
+    bug: "bg-red-100 text-red-700",
+    content: "bg-purple-100 text-purple-700",
+    design: "bg-pink-100 text-pink-700",
+    other: "bg-gray-100 text-gray-700",
+  };
+
+  const categoryLabels: Record<string, string> = {
+    suggestion: "Sugerencia",
+    bug: "Error",
+    content: "Contenido",
+    design: "Diseño",
+    other: "Otro",
+  };
+
+  if (isLoading) return <p className="text-center text-muted-foreground py-8">Cargando feedback...</p>;
+
+  return (
+    <div className="space-y-3">
+      <p className="text-xs text-muted-foreground">{feedbackItems?.length || 0} mensajes de feedback</p>
+      {feedbackItems?.map((fb: any) => (
+        <div key={fb.id} className="glass rounded-xl p-4 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${categoryColors[fb.category] || categoryColors.other}`}>
+              {categoryLabels[fb.category] || fb.category}
+            </span>
+            <span className="text-[11px] text-muted-foreground">
+              {new Date(fb.created_at).toLocaleDateString("es", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+            </span>
+          </div>
+          <p className="text-sm text-foreground">{fb.message}</p>
+          <p className="text-[10px] text-muted-foreground font-mono truncate">user: {fb.user_id}</p>
+        </div>
+      ))}
+      {feedbackItems?.length === 0 && <p className="text-center text-muted-foreground py-8">No hay feedback aún</p>}
+    </div>
+  );
+};
+
 /* ───────────── MAIN ADMIN PAGE ───────────── */
 const Admin = () => {
   const { user } = useAuth();
@@ -490,16 +543,18 @@ const Admin = () => {
       </div>
 
       <Tabs defaultValue="articles">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="articles" className="text-xs"><BookOpen className="w-4 h-4 mr-1" /> Artículos</TabsTrigger>
           <TabsTrigger value="prompts" className="text-xs"><MessageSquare className="w-4 h-4 mr-1" /> Prompts</TabsTrigger>
           <TabsTrigger value="tips" className="text-xs"><Lightbulb className="w-4 h-4 mr-1" /> Tips</TabsTrigger>
           <TabsTrigger value="programs" className="text-xs"><Layers className="w-4 h-4 mr-1" /> Programas</TabsTrigger>
+          <TabsTrigger value="feedback" className="text-xs"><MessageSquareHeart className="w-4 h-4 mr-1" /> Feedback</TabsTrigger>
         </TabsList>
         <TabsContent value="articles"><ArticlesTab /></TabsContent>
         <TabsContent value="prompts"><PromptsTab /></TabsContent>
         <TabsContent value="tips"><TipsTab /></TabsContent>
         <TabsContent value="programs"><ProgramsTab /></TabsContent>
+        <TabsContent value="feedback"><FeedbackTab /></TabsContent>
       </Tabs>
     </div>
   );
