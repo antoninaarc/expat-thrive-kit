@@ -5,7 +5,7 @@ import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
 import { Trans } from "react-i18next";
 import {
   Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert,
-  Library, Target, BookOpen, LogOut, Sun, ShieldCheck, MoreHorizontal, X, MessageSquareHeart,
+  Library, Target, BookOpen, LogOut, Sun, ShieldCheck, MoreHorizontal, X, MessageSquareHeart, Map,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -31,6 +31,7 @@ const AppLayout = () => {
 
   // Secondary items in "More" menu
   const secondaryItems = [
+    { to: "/roadmap", icon: Map, label: t("roadmap.title") },
     { to: "/library", icon: Library, label: t("library.title") },
     { to: "/programs", icon: Target, label: t("programs.title") },
     { to: "/resources", icon: BookOpen, label: t("resources.title").replace(" 🌿", "") },
