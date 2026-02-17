@@ -76,7 +76,7 @@ const AppLayout = () => {
                   <Link
                     key={to}
                     to={to}
-                    className={`relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    className={`relative flex items-center gap-1.5 px-2 py-2 rounded-xl text-xs font-medium transition-all duration-200 whitespace-nowrap ${
                       active
                         ? "text-primary bg-warm-light"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -97,7 +97,7 @@ const AppLayout = () => {
               <LanguageSwitcher />
               <button
                 onClick={signOut}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all duration-200"
+                className="flex items-center gap-1.5 px-2 py-2 rounded-xl text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all duration-200 whitespace-nowrap"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">{t("nav.logout")}</span>

@@ -98,6 +98,8 @@
     "saving": "Guardando...",
     "saved": "✨ Entrada guardada",
     "empty": "Aún no tienes entradas. ¡Comienza tu diario hoy!",
+    "empty_title": "Tu diario te está esperando",
+    "empty_desc": "Escribir sobre tus emociones te ayuda a entender patrones y mejorar tu bienestar como expat.",
     "mood_1": "Muy mal",
     "mood_2": "Mal",
     "mood_3": "Regular",
