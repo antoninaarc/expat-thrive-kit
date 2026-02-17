@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Terms = () => {
   const { t } = useTranslation();
@@ -8,9 +9,12 @@ const Terms = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container max-w-3xl py-8 px-4">
-        <Link to="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
-          <ArrowLeft className="w-4 h-4" /> {t("legal.back")}
-        </Link>
+        <div className="flex items-center justify-between mb-6">
+          <Link to="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+            <ArrowLeft className="w-4 h-4" /> {t("legal.back")}
+          </Link>
+          <LanguageSwitcher />
+        </div>
 
         <h1 className="text-3xl font-display font-bold text-foreground mb-2">{t("legal.terms_title")}</h1>
         <p className="text-sm text-muted-foreground mb-8">{t("legal.last_updated")}: 2025-06-17</p>
