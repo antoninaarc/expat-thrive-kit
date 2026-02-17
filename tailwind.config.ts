@@ -12,7 +12,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['DM Serif Display', 'serif'],
+        display: ['Outfit', 'sans-serif'],
         body: ['DM Sans', 'sans-serif'],
       },
       colors: {
