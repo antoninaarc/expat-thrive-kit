@@ -282,34 +282,46 @@ export type Database = {
           category: string
           created_at: string
           description: string
+          description_en: string
+          description_es: string
           duration_days: number
           emoji: string
           id: string
           slug: string
           sort_order: number
           title: string
+          title_en: string
+          title_es: string
         }
         Insert: {
           category?: string
           created_at?: string
           description?: string
+          description_en?: string
+          description_es?: string
           duration_days: number
           emoji?: string
           id?: string
           slug: string
           sort_order?: number
           title: string
+          title_en?: string
+          title_es?: string
         }
         Update: {
           category?: string
           created_at?: string
           description?: string
+          description_en?: string
+          description_es?: string
           duration_days?: number
           emoji?: string
           id?: string
           slug?: string
           sort_order?: number
           title?: string
+          title_en?: string
+          title_es?: string
         }
         Relationships: []
       }
