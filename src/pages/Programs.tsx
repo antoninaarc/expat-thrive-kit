@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
@@ -56,6 +57,7 @@ interface DayCompletion {
 const Programs = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [activeDay, setActiveDay] = useState<ProgramDay | null>(null);
@@ -131,7 +133,7 @@ const Programs = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-program-progress"] });
-      toast({ title: "¡Programa iniciado! 🚀" });
+      toast({ title: t("programs.program_started") });
     },
     onError: (e: any) =>
       toast({ title: "Error", description: e.message, variant: "destructive" }),
@@ -175,7 +177,7 @@ const Programs = () => {
       queryClient.invalidateQueries({ queryKey: ["day-completions"] });
       setReflection("");
       setActiveDay(null);
-      toast({ title: "¡Día completado! ✅" });
+      toast({ title: t("programs.day_done") });
     },
     onError: (e: any) =>
       toast({ title: "Error", description: e.message, variant: "destructive" }),
@@ -198,12 +200,12 @@ const Programs = () => {
           onClick={() => setActiveDay(null)}
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" /> Volver al programa
+          <ArrowLeft className="w-4 h-4" /> {t("programs.back_program")}
         </button>
 
         <div>
           <span className="text-xs font-medium text-primary uppercase tracking-wider">
-            Día {activeDay.day_number} de {selectedProgram.duration_days}
+            {t("programs.day")} {activeDay.day_number} {t("programs.of")} {selectedProgram.duration_days}
           </span>
           <h1 className="text-2xl font-display font-bold text-foreground mt-1">
             {activeDay.title}
@@ -216,14 +218,14 @@ const Programs = () => {
 
         <div className="glass rounded-2xl p-5 space-y-3">
           <h3 className="text-sm font-semibold text-primary uppercase tracking-wider">
-            🎯 Ejercicio del día
+            {t("programs.exercise_title")}
           </h3>
           <p className="text-foreground leading-relaxed">{activeDay.exercise}</p>
         </div>
 
         <div className="glass rounded-2xl p-5 space-y-3">
           <h3 className="text-sm font-semibold text-primary uppercase tracking-wider">
-            💭 Reflexión
+            {t("programs.reflection_title")}
           </h3>
           <p className="text-muted-foreground text-sm mb-2">
             {activeDay.reflection_prompt}
@@ -239,7 +241,7 @@ const Programs = () => {
               <Textarea
                 value={reflection}
                 onChange={(e) => setReflection(e.target.value)}
-                placeholder="Escribe tu reflexión aquí..."
+                placeholder={t("programs.reflection_placeholder")}
                 rows={3}
               />
               <Button
@@ -253,14 +255,14 @@ const Programs = () => {
                 className="w-full"
               >
                 {completeDayMutation.isPending
-                  ? "Guardando..."
-                  : "Completar día ✅"}
+                  ? t("programs.saving")
+                  : t("programs.complete_day")}
               </Button>
             </>
           )}
           {isDone && (
             <div className="flex items-center gap-2 text-primary text-sm">
-              <CheckCircle2 className="w-4 h-4" /> Día completado
+              <CheckCircle2 className="w-4 h-4" /> {t("programs.day_completed")}
             </div>
           )}
         </div>
@@ -286,7 +288,7 @@ const Programs = () => {
           onClick={() => setSelectedProgram(null)}
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" /> Todos los programas
+          <ArrowLeft className="w-4 h-4" /> {t("programs.back_all")}
         </button>
 
         <div>
@@ -302,15 +304,15 @@ const Programs = () => {
         {progress ? (
           <div className="glass rounded-2xl p-4 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Progreso</span>
+              <span className="text-muted-foreground">{t("programs.progress")}</span>
               <span className="font-medium text-foreground">
-                {completedDays.length}/{days.length} días
+                {completedDays.length}/{days.length} {t("programs.days")}
               </span>
             </div>
             <Progress value={pct} className="h-2" />
             {progress.completed_at && (
               <div className="flex items-center gap-2 text-primary text-sm mt-2">
-                <Trophy className="w-4 h-4" /> ¡Programa completado!
+                <Trophy className="w-4 h-4" /> {t("programs.program_complete")}
               </div>
             )}
           </div>
@@ -322,7 +324,7 @@ const Programs = () => {
             className="w-full"
           >
             <Play className="w-4 h-4 mr-2" />
-            {!user ? "Inicia sesión para empezar" : "Comenzar programa"}
+            {!user ? t("programs.login_to_start") : t("programs.start")}
           </Button>
         )}
 
@@ -379,10 +381,10 @@ const Programs = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-display font-bold text-foreground">
-          Programas 🎯
+          {t("programs.title")} 🎯
         </h1>
         <p className="text-muted-foreground mt-1">
-          Series temáticas para trabajar objetivos específicos paso a paso.
+          {t("programs.subtitle")}
         </p>
       </div>
 
@@ -414,12 +416,12 @@ const Programs = () => {
                     <span className="text-2xl">{program.emoji}</span>
                     {isComplete && (
                       <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium flex items-center gap-1">
-                        <Trophy className="w-3 h-3" /> Completado
+                        <Trophy className="w-3 h-3" /> {t("programs.completed")}
                       </span>
                     )}
                     {isActive && (
                       <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full font-medium">
-                        Día {progress.current_day}/{program.duration_days}
+                        {t("programs.day")} {progress.current_day}/{program.duration_days}
                       </span>
                     )}
                   </div>
@@ -430,7 +432,7 @@ const Programs = () => {
                     {program.description}
                   </p>
                   <span className="text-xs text-muted-foreground/60 mt-3 block">
-                    {program.duration_days} días
+                    {program.duration_days} {t("programs.days")}
                   </span>
                 </div>
               </motion.button>

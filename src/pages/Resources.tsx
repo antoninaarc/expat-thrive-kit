@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Phone, Users, Heart, ExternalLink, Globe, MessageCircle, Shield } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 interface Resource {
@@ -140,6 +141,7 @@ const ResourceCard = ({ resource, index }: { resource: Resource; index: number }
 );
 
 const Resources = () => {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen p-4 md:p-8 max-w-5xl mx-auto">
       <motion.div
@@ -148,10 +150,10 @@ const Resources = () => {
         className="mb-10 text-center"
       >
         <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-2">
-          Recursos 🌿
+          {t("resources.title")}
         </h1>
         <p className="text-muted-foreground max-w-lg mx-auto">
-          No tienes que hacer esto solo/a. Aquí tienes recursos reales para expats en los Países Bajos.
+          {t("resources.subtitle")}
         </p>
       </motion.div>
 

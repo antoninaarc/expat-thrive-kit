@@ -219,6 +219,52 @@
     "done_title": "¡Ya hiciste tu check-in hoy!",
     "done_desc": "Vuelve mañana para mantener tu racha. 🔥"
   },
+  "library": {
+    "title": "Biblioteca",
+    "subtitle": "Artículos para entenderte mejor y navegar tu vida como expat.",
+    "search": "Buscar artículos...",
+    "back": "Volver a la biblioteca",
+    "empty": "No hay artículos en esta categoría aún.",
+    "min_read": "min",
+    "cat_all": "Todos",
+    "cat_mente": "Mente",
+    "cat_emociones": "Emociones",
+    "cat_vida_expat": "Vida Expat",
+    "cat_amor": "Amor y Relaciones",
+    "cat_crecimiento": "Crecimiento",
+    "cat_psicologia": "Psicología"
+  },
+  "programs": {
+    "title": "Programas",
+    "subtitle": "Series temáticas para trabajar objetivos específicos paso a paso.",
+    "start": "Comenzar programa",
+    "login_to_start": "Inicia sesión para empezar",
+    "back_all": "Todos los programas",
+    "back_program": "Volver al programa",
+    "progress": "Progreso",
+    "days": "días",
+    "day": "Día",
+    "of": "de",
+    "completed": "Completado",
+    "day_completed": "Día completado",
+    "complete_day": "Completar día ✅",
+    "saving": "Guardando...",
+    "exercise_title": "🎯 Ejercicio del día",
+    "reflection_title": "💭 Reflexión",
+    "reflection_placeholder": "Escribe tu reflexión aquí...",
+    "program_complete": "¡Programa completado!",
+    "program_started": "¡Programa iniciado! 🚀",
+    "day_done": "¡Día completado! ✅"
+  },
+  "resources": {
+    "title": "Recursos 🌿",
+    "subtitle": "No tienes que hacer esto solo/a. Aquí tienes recursos reales para expats en los Países Bajos."
+  },
+  "flashcards": {
+    "title": "¿Cómo te sientes? Elige una carta ✨",
+    "tap_exercise": "Toca para ver el ejercicio →",
+    "tap_back": "← Toca para volver"
+  },
   "language": {
     "switch": "Idioma",
     "en": "English",

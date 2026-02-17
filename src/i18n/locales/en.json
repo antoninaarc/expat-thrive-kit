@@ -219,6 +219,52 @@
     "done_title": "You already checked in today!",
     "done_desc": "Come back tomorrow to keep your streak. 🔥"
   },
+  "library": {
+    "title": "Library",
+    "subtitle": "Articles to understand yourself better and navigate your expat life.",
+    "search": "Search articles...",
+    "back": "Back to library",
+    "empty": "No articles in this category yet.",
+    "min_read": "min",
+    "cat_all": "All",
+    "cat_mente": "Mind",
+    "cat_emociones": "Emotions",
+    "cat_vida_expat": "Expat Life",
+    "cat_amor": "Love & Relationships",
+    "cat_crecimiento": "Growth",
+    "cat_psicologia": "Psychology"
+  },
+  "programs": {
+    "title": "Programs",
+    "subtitle": "Themed series to work on specific goals step by step.",
+    "start": "Start program",
+    "login_to_start": "Sign in to start",
+    "back_all": "All programs",
+    "back_program": "Back to program",
+    "progress": "Progress",
+    "days": "days",
+    "day": "Day",
+    "of": "of",
+    "completed": "Completed",
+    "day_completed": "Day completed",
+    "complete_day": "Complete day ✅",
+    "saving": "Saving...",
+    "exercise_title": "🎯 Exercise of the day",
+    "reflection_title": "💭 Reflection",
+    "reflection_placeholder": "Write your reflection here...",
+    "program_complete": "Program completed!",
+    "program_started": "Program started! 🚀",
+    "day_done": "Day completed! ✅"
+  },
+  "resources": {
+    "title": "Resources 🌿",
+    "subtitle": "You don't have to do this alone. Here are real resources for expats in the Netherlands."
+  },
+  "flashcards": {
+    "title": "How are you feeling? Pick a card ✨",
+    "tap_exercise": "Tap to see the exercise →",
+    "tap_back": "← Tap to go back"
+  },
   "language": {
     "switch": "Language",
     "en": "English",
