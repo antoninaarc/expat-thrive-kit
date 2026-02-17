@@ -9,6 +9,18 @@ import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, CheckCircle2, Circle, Lock, Play, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
+import programHome from "@/assets/program-home.jpg";
+import programOverthink from "@/assets/program-overthink.jpg";
+import programFomo from "@/assets/program-fomo.jpg";
+import programBalance from "@/assets/program-balance.jpg";
+
+const PROGRAM_IMAGES: Record<string, string> = {
+  "sentirse-en-casa": programHome,
+  "no-overthink": programOverthink,
+  "superar-fomo": programFomo,
+  "burnout-balance": programBalance,
+};
+
 interface Program {
   id: string;
   title: string;
@@ -388,30 +400,39 @@ const Programs = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
                 onClick={() => setSelectedProgram(program)}
-                className="text-left glass rounded-2xl p-5 hover:shadow-md transition-all group"
+                className="text-left glass rounded-2xl overflow-hidden hover:shadow-lg transition-all group"
               >
-                <div className="flex items-start justify-between mb-3">
-                  <span className="text-3xl">{program.emoji}</span>
-                  {isComplete && (
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium flex items-center gap-1">
-                      <Trophy className="w-3 h-3" /> Completado
-                    </span>
-                  )}
-                  {isActive && (
-                    <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full font-medium">
-                      Día {progress.current_day}/{program.duration_days}
-                    </span>
-                  )}
+                {PROGRAM_IMAGES[program.slug] && (
+                  <img
+                    src={PROGRAM_IMAGES[program.slug]}
+                    alt={program.title}
+                    className="w-full h-40 object-cover"
+                  />
+                )}
+                <div className="p-5">
+                  <div className="flex items-start justify-between mb-2">
+                    <span className="text-2xl">{program.emoji}</span>
+                    {isComplete && (
+                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium flex items-center gap-1">
+                        <Trophy className="w-3 h-3" /> Completado
+                      </span>
+                    )}
+                    {isActive && (
+                      <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full font-medium">
+                        Día {progress.current_day}/{program.duration_days}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-lg font-display font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {program.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+                    {program.description}
+                  </p>
+                  <span className="text-xs text-muted-foreground/60 mt-3 block">
+                    {program.duration_days} días
+                  </span>
                 </div>
-                <h3 className="text-lg font-display font-semibold text-foreground group-hover:text-primary transition-colors">
-                  {program.title}
-                </h3>
-                <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                  {program.description}
-                </p>
-                <span className="text-xs text-muted-foreground/60 mt-3 block">
-                  {program.duration_days} días
-                </span>
               </motion.button>
             );
           })}
