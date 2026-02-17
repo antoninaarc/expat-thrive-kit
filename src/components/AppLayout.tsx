@@ -16,9 +16,9 @@ const AppLayout = () => {
     { to: "/journal", icon: BookHeart, label: t("nav.journal") },
     { to: "/assessments", icon: ClipboardCheck, label: t("nav.tests") },
     { to: "/emergency-kit", icon: ShieldAlert, label: t("nav.sos") },
-    { to: "/library", icon: Library, label: "Biblioteca" },
-    { to: "/programs", icon: Target, label: "Programas" },
-    { to: "/resources", icon: BookOpen, label: "Recursos" },
+    { to: "/library", icon: Library, label: t("library.title") },
+    { to: "/programs", icon: Target, label: t("programs.title") },
+    { to: "/resources", icon: BookOpen, label: t("resources.title").replace(" 🌿", "") },
   ];
 
   if (loading) {

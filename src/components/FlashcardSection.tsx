@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Brain, CloudRain, Users, Ghost, Crown, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Flashcard {
   id: string;
@@ -116,6 +117,7 @@ const flashcards: Flashcard[] = [
 
 const FlipCard = ({ card }: { card: Flashcard }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div
@@ -143,7 +145,7 @@ const FlipCard = ({ card }: { card: Flashcard }) => {
             <p className="text-muted-foreground text-xs leading-relaxed">{card.frontMessage}</p>
           </div>
           <span className="text-[10px] text-muted-foreground/50 text-center animate-pulse">
-            Toca para ver el ejercicio →
+            {t("flashcards.tap_exercise")}
           </span>
         </div>
 
@@ -163,17 +165,19 @@ const FlipCard = ({ card }: { card: Flashcard }) => {
               </li>
             ))}
           </ol>
-          <span className="text-[10px] text-muted-foreground/50 text-center">← Toca para volver</span>
+          <span className="text-[10px] text-muted-foreground/50 text-center">{t("flashcards.tap_back")}</span>
         </div>
       </motion.div>
     </div>
   );
 };
 
-const FlashcardSection = () => (
+const FlashcardSection = () => {
+  const { t } = useTranslation();
+  return (
   <div className="space-y-3">
     <h2 className="text-lg font-display font-semibold text-foreground">
-      ¿Cómo te sientes? Elige una carta ✨
+      {t("flashcards.title")}
     </h2>
     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
       {flashcards.map((card) => (
@@ -181,6 +185,7 @@ const FlashcardSection = () => (
       ))}
     </div>
   </div>
-);
+  );
+};
 
 export default FlashcardSection;
