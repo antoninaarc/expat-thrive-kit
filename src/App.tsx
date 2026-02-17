@@ -14,6 +14,7 @@ import EmergencyKit from "./pages/EmergencyKit";
 import Resources from "./pages/Resources";
 import Library from "./pages/Library";
 import Programs from "./pages/Programs";
+import Admin from "./pages/Admin";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
 
@@ -38,6 +39,7 @@ const App = () => (
               <Route path="/library" element={<Library />} />
               <Route path="/programs" element={<Programs />} />
               <Route path="/resources" element={<Resources />} />
+              <Route path="/admin" element={<Admin />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

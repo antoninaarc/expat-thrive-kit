@@ -92,6 +92,15 @@ const Dashboard = () => {
     enabled: !!user,
   });
 
+  // Fetch tips from DB
+  const { data: dbTips } = useQuery({
+    queryKey: ["daily-tips"],
+    queryFn: async () => {
+      const { data } = await supabase.from("daily_tips").select("*").order("day_index");
+      return data || [];
+    },
+  });
+
   // Calculate streak
   const streak = (() => {
     if (!checkins || checkins.length === 0) return 3; // mock
@@ -298,7 +307,7 @@ const Dashboard = () => {
 
       {/* Tip of the day */}
       {(() => {
-        const dayIndex = new Date().getDay(); // 0=Sun..6=Sat
+        const dayIndex = new Date().getDay();
         const tipGradients = [
           "from-[hsl(var(--primary))] to-[hsl(var(--calm))]",
           "from-[hsl(var(--warm))] to-[hsl(var(--coral))]",
@@ -308,6 +317,11 @@ const Dashboard = () => {
           "from-[hsl(var(--mood-5))] to-[hsl(var(--sage))]",
           "from-[hsl(var(--secondary))] to-[hsl(var(--warm))]",
         ];
+        const dbTip = dbTips?.find((tip: any) => tip.day_index === dayIndex);
+        const tipText = dbTip
+          ? (locale === "en" ? dbTip.tip_en : dbTip.tip_es) || t(`dashboard.tips.${dayIndex}`)
+          : t(`dashboard.tips.${dayIndex}`);
+        const tipIcon = dbTip?.icon || null;
         return (
           <motion.div
             variants={item}
@@ -315,11 +329,11 @@ const Dashboard = () => {
           >
             <div className="flex items-start gap-3">
               <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-                <Lightbulb className="w-5 h-5" />
+                {tipIcon ? <span className="text-lg">{tipIcon}</span> : <Lightbulb className="w-5 h-5" />}
               </div>
               <div>
                 <h3 className="font-display font-semibold text-sm mb-0.5">{t("dashboard.tip_title")}</h3>
-                <p className="text-white/80 text-xs leading-relaxed">{t(`dashboard.tips.${dayIndex}`)}</p>
+                <p className="text-white/80 text-xs leading-relaxed">{tipText}</p>
               </div>
             </div>
           </motion.div>
