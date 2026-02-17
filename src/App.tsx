@@ -11,8 +11,8 @@ import Journal from "./pages/Journal";
 import DailyRoutine from "./pages/DailyRoutine";
 import Assessments from "./pages/Assessments";
 import EmergencyKit from "./pages/EmergencyKit";
-import Activities from "./pages/Activities";
 import Resources from "./pages/Resources";
+import Library from "./pages/Library";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
 
@@ -34,7 +34,7 @@ const App = () => (
               <Route path="/journal" element={<Journal />} />
               <Route path="/assessments" element={<Assessments />} />
               <Route path="/emergency-kit" element={<EmergencyKit />} />
-              <Route path="/activities" element={<Activities />} />
+              <Route path="/library" element={<Library />} />
               <Route path="/resources" element={<Resources />} />
             </Route>
             <Route path="*" element={<NotFound />} />

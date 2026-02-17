@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Sun, Flame, CheckCircle2, Circle, Sparkles, Timer } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import FlashcardSection from "@/components/FlashcardSection";
 
 const DAILY_PROMPTS_ES = [
   "¿Qué es lo primero que sentiste al despertar hoy?",
@@ -312,6 +313,11 @@ const DailyRoutine = () => {
           </Button>
         </div>
       )}
+
+      {/* Flashcards section */}
+      <div className="mt-8 pt-6 border-t border-border/50">
+        <FlashcardSection />
+      </div>
     </div>
   );
 };

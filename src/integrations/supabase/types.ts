@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      articles: {
+        Row: {
+          author: string
+          category: string
+          content: string
+          cover_image_url: string | null
+          created_at: string
+          id: string
+          published: boolean
+          read_time_minutes: number
+          slug: string
+          summary: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string
+          category: string
+          content?: string
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          read_time_minutes?: number
+          slug: string
+          summary?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string
+          category?: string
+          content?: string
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          published?: boolean
+          read_time_minutes?: number
+          slug?: string
+          summary?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       assessment_results: {
         Row: {
           answers: Json | null
