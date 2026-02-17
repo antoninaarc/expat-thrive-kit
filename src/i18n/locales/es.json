@@ -42,7 +42,9 @@
     "loading": "Cargando...",
     "account_created": "¡Cuenta creada!",
     "check_email": "Revisa tu email para confirmar tu cuenta.",
-    "footer": "Hecho con cariño para la comunidad expat"
+    "footer": "Hecho con cariño para la comunidad expat",
+    "or": "o",
+    "google_signin": "Continuar con Google"
   },
   "dashboard": {
     "hello": "Hola, {{name}} 👋",
