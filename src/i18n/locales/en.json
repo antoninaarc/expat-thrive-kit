@@ -85,7 +85,10 @@
     "continue": "Continue",
     "completed": "Completed ✓",
     "no_mood_data": "No mood entries yet",
-    "start_journaling": "Start journaling"
+    "start_journaling": "Start journaling",
+    "ai_insight_title": "Your wellness coach",
+    "ai_powered": "Personalized AI analysis",
+    "ai_no_insight": "Not enough data to generate insights yet."
   },
   "journal": {
     "title": "Emotional Journal",

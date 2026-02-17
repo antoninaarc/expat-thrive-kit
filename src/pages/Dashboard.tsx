@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Progress } from "@/components/ui/progress";
 import dashboardHero from "@/assets/dashboard-hero.jpg";
+import AiInsightsWidget from "@/components/AiInsightsWidget";
 
 const moodEmojis = ["😢", "😟", "😐", "🙂", "😄"];
 
@@ -185,6 +186,11 @@ const Dashboard = () => {
             </Link>
           </motion.div>
         ))}
+      </motion.div>
+
+      {/* AI Insights */}
+      <motion.div variants={item}>
+        <AiInsightsWidget />
       </motion.div>
 
       {/* Roadmap CTA */}
