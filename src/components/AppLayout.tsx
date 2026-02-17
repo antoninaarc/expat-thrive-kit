@@ -5,7 +5,7 @@ import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
 import { Trans } from "react-i18next";
 import {
   Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert,
-  Library, Target, BookOpen, LogOut, Sun, ShieldCheck, MoreHorizontal, X,
+  Library, Target, BookOpen, LogOut, Sun, ShieldCheck, MoreHorizontal, X, MessageSquareHeart,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -34,6 +34,7 @@ const AppLayout = () => {
     { to: "/library", icon: Library, label: t("library.title") },
     { to: "/programs", icon: Target, label: t("programs.title") },
     { to: "/resources", icon: BookOpen, label: t("resources.title").replace(" 🌿", "") },
+    { to: "/feedback", icon: MessageSquareHeart, label: t("feedback.title") },
     ...(isAdmin ? [{ to: "/admin", icon: ShieldCheck, label: "Admin" }] : []),
   ];
 
