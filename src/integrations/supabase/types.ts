@@ -176,6 +176,150 @@ export type Database = {
         }
         Relationships: []
       }
+      program_days: {
+        Row: {
+          content: string
+          day_number: number
+          exercise: string
+          id: string
+          program_id: string
+          reflection_prompt: string
+          title: string
+        }
+        Insert: {
+          content?: string
+          day_number: number
+          exercise?: string
+          id?: string
+          program_id: string
+          reflection_prompt?: string
+          title: string
+        }
+        Update: {
+          content?: string
+          day_number?: number
+          exercise?: string
+          id?: string
+          program_id?: string
+          reflection_prompt?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "program_days_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      programs: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          duration_days: number
+          emoji: string
+          id: string
+          slug: string
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration_days: number
+          emoji?: string
+          id?: string
+          slug: string
+          sort_order?: number
+          title: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration_days?: number
+          emoji?: string
+          id?: string
+          slug?: string
+          sort_order?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      user_day_completions: {
+        Row: {
+          completed_at: string
+          day_number: number
+          id: string
+          program_id: string
+          reflection: string | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          day_number: number
+          id?: string
+          program_id: string
+          reflection?: string | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          day_number?: number
+          id?: string
+          program_id?: string
+          reflection?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_day_completions_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_program_progress: {
+        Row: {
+          completed_at: string | null
+          current_day: number
+          id: string
+          program_id: string
+          started_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          current_day?: number
+          id?: string
+          program_id: string
+          started_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          current_day?: number
+          id?: string
+          program_id?: string
+          started_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_program_progress_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
