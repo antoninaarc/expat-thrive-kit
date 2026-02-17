@@ -85,6 +85,7 @@
     "title": "Diario Emocional",
     "subtitle": "Registra tus emociones diarias y observa tus patrones",
     "new_entry": "Nueva entrada",
+    "daily_prompt": "Día {{day}} — Pregunta de reflexión",
     "how_feel": "¿Cómo te sientes?",
     "main_emotion": "¿Qué emoción predomina?",
     "write_more": "¿Quieres escribir algo más? (opcional)",
