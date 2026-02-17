@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
-import { Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert, Sparkles, BookOpen, LogOut } from "lucide-react";
+import { Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert, Sparkles, BookOpen, LogOut, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -12,6 +12,7 @@ const AppLayout = () => {
 
   const navItems = [
     { to: "/dashboard", icon: LayoutDashboard, label: t("nav.home") },
+    { to: "/routine", icon: Sun, label: t("nav.routine") },
     { to: "/journal", icon: BookHeart, label: t("nav.journal") },
     { to: "/assessments", icon: ClipboardCheck, label: t("nav.tests") },
     { to: "/emergency-kit", icon: ShieldAlert, label: t("nav.sos") },

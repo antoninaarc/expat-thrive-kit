@@ -8,6 +8,7 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Journal from "./pages/Journal";
+import DailyRoutine from "./pages/DailyRoutine";
 import Assessments from "./pages/Assessments";
 import EmergencyKit from "./pages/EmergencyKit";
 import Activities from "./pages/Activities";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/routine" element={<DailyRoutine />} />
               <Route path="/journal" element={<Journal />} />
               <Route path="/assessments" element={<Assessments />} />
               <Route path="/emergency-kit" element={<EmergencyKit />} />

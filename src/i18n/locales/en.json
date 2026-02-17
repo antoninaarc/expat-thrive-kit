@@ -5,6 +5,7 @@
   },
   "nav": {
     "home": "Home",
+    "routine": "Routine",
     "journal": "Journal",
     "tests": "Tests",
     "sos": "SOS Kit",
@@ -192,6 +193,31 @@
       "478_desc": "Deep relaxation technique for anxious moments",
       "478_steps": ["Inhale through your nose counting to 4", "Hold your breath counting to 7", "Exhale through your mouth counting to 8", "Repeat 3-4 cycles"]
     }
+  },
+  "routine": {
+    "title": "Daily Routine",
+    "subtitle": "Your daily wellness ritual",
+    "streak": "day streak",
+    "step_mood": "Mood",
+    "step_thought": "Reflection",
+    "step_exercise": "Exercise",
+    "prompt_label": "Today's reflection",
+    "how_feel": "How are you feeling today?",
+    "thought_label": "Your thought of the day",
+    "thought_placeholder": "Respond to the prompt or write how you feel...",
+    "exercise_label": "Quick exercise (2 min)",
+    "exercise_breathing_title": "Breathe",
+    "exercise_grounding_title": "Grounding",
+    "exercise_gratitude_title": "Gratitude",
+    "exercise_breathing": "Inhale 4s... hold 4s... exhale 4s... Repeat.",
+    "exercise_grounding": "Name 5 things you see, 4 you touch, 3 you hear...",
+    "exercise_gratitude": "Think of 3 things you're grateful for today.",
+    "exercise_done": "Exercise completed!",
+    "save": "Save check-in",
+    "saving": "Saving...",
+    "saved": "✨ Check-in saved",
+    "done_title": "You already checked in today!",
+    "done_desc": "Come back tomorrow to keep your streak. 🔥"
   },
   "language": {
     "switch": "Language",
