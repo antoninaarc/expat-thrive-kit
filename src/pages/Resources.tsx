@@ -4,142 +4,149 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 interface Resource {
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
   url: string;
   icon: React.ReactNode;
-  tag: string;
+  tagKey: string;
   tagColor: string;
 }
 
-const sections = [
+interface Section {
+  titleKey: string;
+  subtitleKey: string;
+  icon: React.ReactNode;
+  resources: Resource[];
+}
+
+const sections: Section[] = [
   {
-    title: "Líneas de Ayuda 🆘",
-    subtitle: "Si necesitas hablar con alguien ahora mismo",
+    titleKey: "resources.helplines_title",
+    subtitleKey: "resources.helplines_subtitle",
     icon: <Phone className="w-5 h-5" />,
     resources: [
       {
-        title: "113 Zelfmoordpreventie",
-        description: "Línea de prevención del suicidio en Países Bajos. 24/7, gratuita y confidencial.",
+        titleKey: "resources.helplines_113_title",
+        descKey: "resources.helplines_113_desc",
         url: "https://www.113.nl/",
         icon: <Phone className="w-5 h-5" />,
-        tag: "24/7",
+        tagKey: "resources.helplines_113_tag",
         tagColor: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
       },
       {
-        title: "De Luisterlijn",
-        description: "Línea de escucha anónima. Puedes llamar, chatear o enviar email. En neerlandés e inglés.",
+        titleKey: "resources.helplines_luisterlijn_title",
+        descKey: "resources.helplines_luisterlijn_desc",
         url: "https://www.deluisterlijn.nl/",
         icon: <MessageCircle className="w-5 h-5" />,
-        tag: "Anónimo",
+        tagKey: "resources.helplines_luisterlijn_tag",
         tagColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
       },
       {
-        title: "Crisis Line International",
-        description: "Apoyo en crisis en múltiples idiomas, incluyendo español e inglés.",
+        titleKey: "resources.helplines_crisis_title",
+        descKey: "resources.helplines_crisis_desc",
         url: "https://findahelpline.com/countries/nl",
         icon: <Globe className="w-5 h-5" />,
-        tag: "Multilingüe",
+        tagKey: "resources.helplines_crisis_tag",
         tagColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
       },
-    ] as Resource[],
+    ],
   },
   {
-    title: "Comunidades de Expats 🤝",
-    subtitle: "Conecta con personas que entienden lo que vives",
+    titleKey: "resources.community_title",
+    subtitleKey: "resources.community_subtitle",
     icon: <Users className="w-5 h-5" />,
     resources: [
       {
-        title: "Internations Netherlands",
-        description: "Red global de expats con eventos, actividades y grupos locales en todas las ciudades holandesas.",
+        titleKey: "resources.community_internations_title",
+        descKey: "resources.community_internations_desc",
         url: "https://www.internations.org/netherlands-expats",
         icon: <Users className="w-5 h-5" />,
-        tag: "Eventos",
+        tagKey: "resources.community_internations_tag",
         tagColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
       },
       {
-        title: "Meetup.com — Expats NL",
-        description: "Grupos de meetup para expats: deportes, idiomas, networking, apoyo emocional y más.",
+        titleKey: "resources.community_meetup_title",
+        descKey: "resources.community_meetup_desc",
         url: "https://www.meetup.com/find/?keywords=expat&location=nl",
         icon: <Globe className="w-5 h-5" />,
-        tag: "Gratis",
+        tagKey: "resources.community_meetup_tag",
         tagColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
       },
       {
-        title: "r/Netherlands (Reddit)",
-        description: "Comunidad activa en Reddit donde expats comparten experiencias, consejos y apoyo.",
+        titleKey: "resources.community_reddit_title",
+        descKey: "resources.community_reddit_desc",
         url: "https://www.reddit.com/r/Netherlands/",
         icon: <MessageCircle className="w-5 h-5" />,
-        tag: "Online",
+        tagKey: "resources.community_reddit_tag",
         tagColor: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
       },
-    ] as Resource[],
+    ],
   },
   {
-    title: "Sistema de Salud Mental 🏥",
-    subtitle: "Cómo funciona el acceso a psicología y psiquiatría en Países Bajos",
+    titleKey: "resources.health_title",
+    subtitleKey: "resources.health_subtitle",
     icon: <Shield className="w-5 h-5" />,
     resources: [
       {
-        title: "Paso 1: Tu Huisarts (GP)",
-        description: "En NL necesitas un médico de cabecera (huisarts) registrado. Él es la puerta de entrada al sistema: pide cita y explica que necesitas apoyo psicológico.",
+        titleKey: "resources.health_gp_title",
+        descKey: "resources.health_gp_desc",
         url: "https://www.government.nl/topics/health-insurance/standard-health-insurance",
         icon: <Shield className="w-5 h-5" />,
-        tag: "Primer paso",
+        tagKey: "resources.health_gp_tag",
         tagColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
       },
       {
-        title: "Paso 2: Referido (Verwijsbrief)",
-        description: "Tu GP te dará un referido a un psicólogo o psiquiatra. Sin este documento, el seguro no cubre la terapia. Insiste si sientes que lo necesitas.",
+        titleKey: "resources.health_referral_title",
+        descKey: "resources.health_referral_desc",
         url: "https://www.rijksoverheid.nl/onderwerpen/geestelijke-gezondheidszorg",
         icon: <MessageCircle className="w-5 h-5" />,
-        tag: "Obligatorio",
+        tagKey: "resources.health_referral_tag",
         tagColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
       },
       {
-        title: "Listas de espera (Wachtlijsten)",
-        description: "Las esperas para psicología y psiquiatría pueden ser de 3 a 12 meses en NL. Consulta wachttijden.ggz.nl para comparar tiempos por zona. Mientras tanto, OpenUp o tu GP pueden ofrecer apoyo inicial.",
+        titleKey: "resources.health_wait_title",
+        descKey: "resources.health_wait_desc",
         url: "https://www.wachttijdenggz.nl/",
         icon: <Globe className="w-5 h-5" />,
-        tag: "3-12 meses",
+        tagKey: "resources.health_wait_tag",
         tagColor: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
       },
-    ] as Resource[],
+    ],
   },
   {
-    title: "Terapeutas para Expats 🧠",
-    subtitle: "Profesionales que hablan tu idioma y entienden tu situación",
+    titleKey: "resources.therapists_title",
+    subtitleKey: "resources.therapists_subtitle",
     icon: <Heart className="w-5 h-5" />,
     resources: [
       {
-        title: "iGP (International GP)",
-        description: "Red de médicos de cabecera internacionales que pueden derivarte a psicólogos en inglés/español.",
+        titleKey: "resources.therapists_igp_title",
+        descKey: "resources.therapists_igp_desc",
         url: "https://www.igp.nl/",
         icon: <Shield className="w-5 h-5" />,
-        tag: "Seguro médico",
+        tagKey: "resources.therapists_igp_tag",
         tagColor: "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400",
       },
       {
-        title: "OpenUp",
-        description: "Sesiones gratuitas de bienestar mental online en inglés. Muchos empleadores holandeses lo cubren.",
+        titleKey: "resources.therapists_openup_title",
+        descKey: "resources.therapists_openup_desc",
         url: "https://openup.com/",
         icon: <Heart className="w-5 h-5" />,
-        tag: "Gratis vía employer",
+        tagKey: "resources.therapists_openup_tag",
         tagColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
       },
       {
-        title: "Psychology Today — NL",
-        description: "Directorio de terapeutas en Países Bajos. Filtra por idioma, especialidad y tipo de seguro.",
+        titleKey: "resources.therapists_psychtoday_title",
+        descKey: "resources.therapists_psychtoday_desc",
         url: "https://www.psychologytoday.com/nl/counselling",
         icon: <Globe className="w-5 h-5" />,
-        tag: "Directorio",
+        tagKey: "resources.therapists_psychtoday_tag",
         tagColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
       },
-    ] as Resource[],
+    ],
   },
 ];
 
-const ResourceCard = ({ resource, index }: { resource: Resource; index: number }) => (
+const ResourceCard = ({ resource, index, t }: { resource: Resource; index: number; t: (key: string) => string }) => (
   <motion.a
     href={resource.url}
     target="_blank"
@@ -155,16 +162,16 @@ const ResourceCard = ({ resource, index }: { resource: Resource; index: number }
           <div className="flex items-center gap-2 text-muted-foreground group-hover:text-primary transition-colors">
             {resource.icon}
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${resource.tagColor}`}>
-              {resource.tag}
+              {t(resource.tagKey)}
             </span>
           </div>
           <ExternalLink className="w-4 h-4 text-muted-foreground/40 group-hover:text-primary transition-colors" />
         </div>
-        <CardTitle className="text-base mt-2">{resource.title}</CardTitle>
+        <CardTitle className="text-base mt-2">{t(resource.titleKey)}</CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription className="text-sm leading-relaxed">
-          {resource.description}
+          {t(resource.descKey)}
         </CardDescription>
       </CardContent>
     </Card>
@@ -191,18 +198,18 @@ const Resources = () => {
       <div className="space-y-10">
         {sections.map((section, sIdx) => (
           <motion.section
-            key={section.title}
+            key={section.titleKey}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: sIdx * 0.15 }}
           >
             <div className="mb-4">
-              <h2 className="text-xl font-display font-semibold text-foreground">{section.title}</h2>
-              <p className="text-sm text-muted-foreground">{section.subtitle}</p>
+              <h2 className="text-xl font-display font-semibold text-foreground">{t(section.titleKey)}</h2>
+              <p className="text-sm text-muted-foreground">{t(section.subtitleKey)}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {section.resources.map((resource, rIdx) => (
-                <ResourceCard key={resource.title} resource={resource} index={sIdx * 3 + rIdx} />
+                <ResourceCard key={resource.titleKey} resource={resource} index={sIdx * 3 + rIdx} t={t} />
               ))}
             </div>
           </motion.section>
