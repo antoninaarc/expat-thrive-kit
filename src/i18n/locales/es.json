@@ -85,7 +85,10 @@
     "continue": "Continuar",
     "completed": "Completado ✓",
     "no_mood_data": "Aún no tienes registros de ánimo",
-    "start_journaling": "Empieza tu diario"
+    "start_journaling": "Empieza tu diario",
+    "ai_insight_title": "Tu coach de bienestar",
+    "ai_powered": "Análisis personalizado con IA",
+    "ai_no_insight": "Aún no hay suficientes datos para generar insights."
   },
   "journal": {
     "title": "Diario Emocional",
