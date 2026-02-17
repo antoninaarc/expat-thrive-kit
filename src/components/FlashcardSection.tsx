@@ -1,6 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { motion, useMotionValue, useTransform, AnimatePresence, PanInfo } from "framer-motion";
-import { Brain, CloudRain, Users, Ghost, Crown, Globe, RotateCcw } from "lucide-react";
+import { Brain, CloudRain, Users, Ghost, Crown, Globe, RotateCcw, PartyPopper } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
@@ -178,15 +178,77 @@ const SwipeCard = ({
   );
 };
 
+// Confetti particle component
+const ConfettiParticle = ({ delay, index }: { delay: number; index: number }) => {
+  const colors = [
+    "bg-[hsl(var(--warm))]",
+    "bg-[hsl(var(--coral))]",
+    "bg-[hsl(var(--calm))]",
+    "bg-[hsl(var(--sage))]",
+    "bg-[hsl(var(--primary))]",
+    "bg-[hsl(var(--secondary))]",
+    "bg-[hsl(var(--mood-5))]",
+  ];
+  const size = 4 + Math.random() * 6;
+  const xEnd = (Math.random() - 0.5) * 300;
+  const rotation = Math.random() * 720 - 360;
+
+  return (
+    <motion.div
+      className={`absolute rounded-sm ${colors[index % colors.length]}`}
+      style={{ width: size, height: size, left: "50%", top: "40%" }}
+      initial={{ opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 }}
+      animate={{
+        opacity: [1, 1, 0],
+        x: xEnd,
+        y: [0, -120 - Math.random() * 80, 200 + Math.random() * 100],
+        rotate: rotation,
+        scale: [1, 1.2, 0.5],
+      }}
+      transition={{ duration: 1.8, delay, ease: "easeOut" }}
+    />
+  );
+};
+
 const FlashcardSection = () => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [seenCards, setSeenCards] = useState<Set<number>>(new Set([0]));
+  const [showCelebration, setShowCelebration] = useState(false);
+
+  const confettiParticles = useMemo(() =>
+    Array.from({ length: 40 }, (_, i) => ({
+      id: i,
+      delay: Math.random() * 0.5,
+    })), []);
 
   const handleSwipe = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % cardDefs.length);
+    setCurrentIndex((prev) => {
+      const next = (prev + 1) % cardDefs.length;
+      setSeenCards((s) => {
+        const updated = new Set(s);
+        updated.add(next);
+        if (updated.size === cardDefs.length) {
+          setShowCelebration(true);
+        }
+        return updated;
+      });
+      return next;
+    });
   }, []);
 
-  const handleReset = () => setCurrentIndex(0);
+  useEffect(() => {
+    if (showCelebration) {
+      const timer = setTimeout(() => setShowCelebration(false), 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [showCelebration]);
+
+  const handleReset = () => {
+    setCurrentIndex(0);
+    setSeenCards(new Set([0]));
+    setShowCelebration(false);
+  };
 
   const current = cardDefs[currentIndex];
   const next = cardDefs[(currentIndex + 1) % cardDefs.length];
@@ -207,10 +269,53 @@ const FlashcardSection = () => {
         </div>
       </div>
 
-      <div className="relative w-full" style={{ height: 300 }}>
+      <div className="relative w-full overflow-hidden" style={{ height: 300 }}>
         <AnimatePresence mode="popLayout">
           <SwipeCard key={`bg-${next.id}-${currentIndex}`} card={next} isTop={false} onSwipe={() => {}} />
           <SwipeCard key={`top-${current.id}-${currentIndex}`} card={current} isTop={true} onSwipe={handleSwipe} />
+        </AnimatePresence>
+
+        {/* Celebration overlay */}
+        <AnimatePresence>
+          {showCelebration && (
+            <motion.div
+              className="absolute inset-0 z-50 flex flex-col items-center justify-center rounded-2xl bg-background/80 backdrop-blur-sm"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
+            >
+              {confettiParticles.map((p) => (
+                <ConfettiParticle key={p.id} delay={p.delay} index={p.id} />
+              ))}
+
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: [0, 1.3, 1] }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="w-14 h-14 rounded-full bg-gradient-to-br from-[hsl(var(--warm))] to-[hsl(var(--coral))] flex items-center justify-center mb-3"
+              >
+                <PartyPopper className="w-7 h-7 text-white" />
+              </motion.div>
+
+              <motion.h3
+                className="font-display font-bold text-lg text-foreground"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                {t("flashcards.complete_title")}
+              </motion.h3>
+              <motion.p
+                className="text-sm text-muted-foreground mt-1 text-center px-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+              >
+                {t("flashcards.complete_msg")}
+              </motion.p>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
 
@@ -219,9 +324,16 @@ const FlashcardSection = () => {
           <button
             key={i}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              i === currentIndex ? "bg-primary w-4" : "bg-muted-foreground/30"
+              i === currentIndex
+                ? "bg-primary w-4"
+                : seenCards.has(i)
+                ? "bg-primary/40"
+                : "bg-muted-foreground/30"
             }`}
-            onClick={() => setCurrentIndex(i)}
+            onClick={() => {
+              setCurrentIndex(i);
+              setSeenCards((s) => new Set(s).add(i));
+            }}
           />
         ))}
       </div>
