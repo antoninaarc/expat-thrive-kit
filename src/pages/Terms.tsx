@@ -1,0 +1,55 @@
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+const Terms = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="container max-w-3xl py-8 px-4">
+        <Link to="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
+          <ArrowLeft className="w-4 h-4" /> {t("legal.back")}
+        </Link>
+
+        <h1 className="text-3xl font-display font-bold text-foreground mb-2">{t("legal.terms_title")}</h1>
+        <p className="text-sm text-muted-foreground mb-8">{t("legal.last_updated")}: 2025-06-17</p>
+
+        <div className="prose prose-sm max-w-none text-foreground/90 space-y-6">
+          {/* Disclaimer */}
+          <section className="bg-destructive/5 border border-destructive/20 rounded-xl p-5">
+            <h2 className="text-lg font-semibold text-foreground mt-0">{t("legal.disclaimer_title")}</h2>
+            <p>{t("legal.disclaimer_text")}</p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">{t("legal.terms_s1_title")}</h2>
+            <p>{t("legal.terms_s1_text")}</p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">{t("legal.terms_s2_title")}</h2>
+            <p>{t("legal.terms_s2_text")}</p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">{t("legal.terms_s3_title")}</h2>
+            <p>{t("legal.terms_s3_text")}</p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">{t("legal.terms_s4_title")}</h2>
+            <p>{t("legal.terms_s4_text")}</p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-foreground">{t("legal.terms_s5_title")}</h2>
+            <p>{t("legal.terms_s5_text")}</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Terms;
