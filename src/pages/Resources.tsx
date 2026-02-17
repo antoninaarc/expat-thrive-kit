@@ -77,7 +77,7 @@ const sections = [
   },
   {
     title: "Sistema de Salud Mental 🏥",
-    subtitle: "Cómo funciona el acceso a psicología en Países Bajos",
+    subtitle: "Cómo funciona el acceso a psicología y psiquiatría en Países Bajos",
     icon: <Shield className="w-5 h-5" />,
     resources: [
       {
@@ -98,7 +98,7 @@ const sections = [
       },
       {
         title: "Listas de espera (Wachtlijsten)",
-        description: "Las esperas pueden ser de 3 a 12 meses. Consulta wachttijden.ggz.nl para comparar tiempos. Mientras tanto, OpenUp o tu GP pueden ofrecer apoyo inicial.",
+        description: "Las esperas para psicología y psiquiatría pueden ser de 3 a 12 meses en NL. Consulta wachttijden.ggz.nl para comparar tiempos por zona. Mientras tanto, OpenUp o tu GP pueden ofrecer apoyo inicial.",
         url: "https://www.wachttijdenggz.nl/",
         icon: <Globe className="w-5 h-5" />,
         tag: "3-12 meses",
