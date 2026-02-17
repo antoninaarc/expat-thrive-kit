@@ -1,12 +1,14 @@
 import { useAuth } from "@/hooks/useAuth";
+import { useAdmin } from "@/hooks/useAdmin";
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
-import { Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert, Library, Target, BookOpen, LogOut, Sun } from "lucide-react";
+import { Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert, Library, Target, BookOpen, LogOut, Sun, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const AppLayout = () => {
   const { user, loading, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
   const location = useLocation();
   const { t } = useTranslation();
 
@@ -19,6 +21,7 @@ const AppLayout = () => {
     { to: "/library", icon: Library, label: t("library.title") },
     { to: "/programs", icon: Target, label: t("programs.title") },
     { to: "/resources", icon: BookOpen, label: t("resources.title").replace(" 🌿", "") },
+    ...(isAdmin ? [{ to: "/admin", icon: ShieldCheck, label: "Admin" }] : []),
   ];
 
   if (loading) {

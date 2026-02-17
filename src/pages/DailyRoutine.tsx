@@ -99,8 +99,27 @@ const DailyRoutine = () => {
 
   const todayStr = new Date().toISOString().split("T")[0];
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
-  const promptIndex = dayOfYear % DAILY_PROMPTS_ES.length;
-  const todayPrompt = isEn ? DAILY_PROMPTS_EN[promptIndex] : DAILY_PROMPTS_ES[promptIndex];
+
+  // Fetch prompts from DB
+  const { data: dbPrompts } = useQuery({
+    queryKey: ["journal-prompts"],
+    queryFn: async () => {
+      const { data } = await supabase.from("journal_prompts").select("*").order("day_index");
+      return data || [];
+    },
+  });
+
+  const promptIndex = dbPrompts && dbPrompts.length > 0
+    ? dayOfYear % dbPrompts.length
+    : dayOfYear % DAILY_PROMPTS_ES.length;
+
+  const todayPrompt = (() => {
+    if (dbPrompts && dbPrompts.length > 0) {
+      const p = dbPrompts[dayOfYear % dbPrompts.length];
+      return isEn ? (p.prompt_en || p.prompt_es) : p.prompt_es;
+    }
+    return isEn ? DAILY_PROMPTS_EN[promptIndex] : DAILY_PROMPTS_ES[promptIndex];
+  })();
 
   const [mood, setMood] = useState<number | null>(null);
   const [thought, setThought] = useState("");

@@ -122,6 +122,39 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_tips: {
+        Row: {
+          active: boolean
+          created_at: string
+          day_index: number
+          icon: string
+          id: string
+          tip_en: string
+          tip_es: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          day_index: number
+          icon?: string
+          id?: string
+          tip_en?: string
+          tip_es?: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          day_index?: number
+          icon?: string
+          id?: string
+          tip_en?: string
+          tip_es?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       journal_entries: {
         Row: {
           content: string | null
@@ -146,6 +179,36 @@ export type Database = {
           id?: string
           mood?: number
           user_id?: string
+        }
+        Relationships: []
+      }
+      journal_prompts: {
+        Row: {
+          active: boolean
+          created_at: string
+          day_index: number
+          id: string
+          prompt_en: string
+          prompt_es: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          day_index: number
+          id?: string
+          prompt_en?: string
+          prompt_es?: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          day_index?: number
+          id?: string
+          prompt_en?: string
+          prompt_es?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -320,15 +383,39 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -455,6 +542,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
