@@ -76,6 +76,37 @@ const sections = [
     ] as Resource[],
   },
   {
+    title: "Sistema de Salud Mental 🏥",
+    subtitle: "Cómo funciona el acceso a psicología en Países Bajos",
+    icon: <Shield className="w-5 h-5" />,
+    resources: [
+      {
+        title: "Paso 1: Tu Huisarts (GP)",
+        description: "En NL necesitas un médico de cabecera (huisarts) registrado. Él es la puerta de entrada al sistema: pide cita y explica que necesitas apoyo psicológico.",
+        url: "https://www.government.nl/topics/health-insurance/standard-health-insurance",
+        icon: <Shield className="w-5 h-5" />,
+        tag: "Primer paso",
+        tagColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+      },
+      {
+        title: "Paso 2: Referido (Verwijsbrief)",
+        description: "Tu GP te dará un referido a un psicólogo o psiquiatra. Sin este documento, el seguro no cubre la terapia. Insiste si sientes que lo necesitas.",
+        url: "https://www.rijksoverheid.nl/onderwerpen/geestelijke-gezondheidszorg",
+        icon: <MessageCircle className="w-5 h-5" />,
+        tag: "Obligatorio",
+        tagColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+      },
+      {
+        title: "Listas de espera (Wachtlijsten)",
+        description: "Las esperas pueden ser de 3 a 12 meses. Consulta wachttijden.ggz.nl para comparar tiempos. Mientras tanto, OpenUp o tu GP pueden ofrecer apoyo inicial.",
+        url: "https://www.wachttijdenggz.nl/",
+        icon: <Globe className="w-5 h-5" />,
+        tag: "3-12 meses",
+        tagColor: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+      },
+    ] as Resource[],
+  },
+  {
     title: "Terapeutas para Expats 🧠",
     subtitle: "Profesionales que hablan tu idioma y entienden tu situación",
     icon: <Heart className="w-5 h-5" />,
