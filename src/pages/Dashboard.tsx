@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   BookHeart, ClipboardCheck, ShieldAlert, Smile, ArrowRight,
-  Sparkles, Flame, Calendar, Lightbulb, Play, Target,
+  Sparkles, Flame, Calendar, Lightbulb, Play, Target, Map,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -185,6 +185,31 @@ const Dashboard = () => {
             </Link>
           </motion.div>
         ))}
+      </motion.div>
+
+      {/* Roadmap CTA */}
+      <motion.div variants={item}>
+        <Link to="/roadmap">
+          <motion.div
+            className="relative rounded-2xl bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--calm))] to-[hsl(var(--sage))] p-4 text-white overflow-hidden hover:shadow-lg transition-shadow"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="absolute top-2 right-3 opacity-20">
+              <Map className="w-16 h-16" />
+            </div>
+            <div className="flex items-center gap-3 relative z-10">
+              <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+                <Map className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-display text-sm font-bold">{t("roadmap.title")}</h3>
+                <p className="text-white/80 text-xs">{t("roadmap.subtitle")}</p>
+              </div>
+              <ArrowRight className="w-4 h-4 ml-auto flex-shrink-0 opacity-70" />
+            </div>
+          </motion.div>
+        </Link>
       </motion.div>
 
       {/* Mood Chart - Bar style */}
