@@ -67,6 +67,15 @@
     "streak_days": "{{count}} día(s)",
     "tip_title": "Consejo del día",
     "tip_text": "Dedicar 2 minutos al día a tu bienestar emocional puede cambiar tu semana entera.",
+    "tips": {
+      "0": "Los domingos son ideales para planificar tu semana emocional. ¿Qué necesitas priorizar esta semana para sentirte bien?",
+      "1": "Empieza el lunes con intención: escribe una palabra que resuma cómo quieres sentirte hoy y vuelve a ella si pierdes el rumbo.",
+      "2": "A mitad de semana, haz una pausa de 2 minutos. Respira profundo 4 veces y pregúntate: ¿cómo estoy realmente?",
+      "3": "Conectar con alguien de tu país de origen puede recargar tu energía emocional. ¿A quién puedes escribirle hoy?",
+      "4": "Los jueves son perfectos para celebrar pequeños logros. ¿Qué has conseguido esta semana que merece reconocimiento?",
+      "5": "Antes del fin de semana, libera tensión: sacude los brazos, estira el cuello y suelta lo que no te sirve.",
+      "6": "Los sábados, explora algo nuevo en tu ciudad. Descubrir un lugar diferente puede renovar tu sentido de pertenencia."
+    },
     "see_all": "Ver todo",
     "explore": "Explorar",
     "continue": "Continuar",
