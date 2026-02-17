@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { useTranslation } from "react-i18next";
+import { useTranslation, } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
@@ -25,8 +25,12 @@ const PROGRAM_IMAGES: Record<string, string> = {
 interface Program {
   id: string;
   title: string;
+  title_en: string;
+  title_es: string;
   slug: string;
   description: string;
+  description_en: string;
+  description_es: string;
   emoji: string;
   duration_days: number;
   category: string;
@@ -57,8 +61,12 @@ interface DayCompletion {
 const Programs = () => {
   const { user } = useAuth();
   const { toast } = useToast();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language?.startsWith("en") ? "en" : "es";
   const queryClient = useQueryClient();
+
+  const localTitle = (p: Program) => locale === "en" ? (p.title_en || p.title) : (p.title_es || p.title);
+  const localDesc = (p: Program) => locale === "en" ? (p.description_en || p.description) : (p.description_es || p.description);
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [activeDay, setActiveDay] = useState<ProgramDay | null>(null);
   const [reflection, setReflection] = useState("");
@@ -294,10 +302,10 @@ const Programs = () => {
         <div>
           <span className="text-4xl">{selectedProgram.emoji}</span>
           <h1 className="text-2xl font-display font-bold text-foreground mt-2">
-            {selectedProgram.title}
+            {localTitle(selectedProgram)}
           </h1>
           <p className="text-muted-foreground mt-1">
-            {selectedProgram.description}
+            {localDesc(selectedProgram)}
           </p>
         </div>
 
@@ -358,7 +366,7 @@ const Programs = () => {
                 )}
                 <div className="flex-1 min-w-0">
                   <span className="text-xs text-muted-foreground">
-                    Día {day.day_number}
+                    {t("programs.day")} {day.day_number}
                   </span>
                   <h3
                     className={`text-sm font-medium truncate ${
@@ -426,10 +434,10 @@ const Programs = () => {
                     )}
                   </div>
                   <h3 className="text-lg font-display font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {program.title}
+                    {localTitle(program)}
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                    {program.description}
+                    {localDesc(program)}
                   </p>
                   <span className="text-xs text-muted-foreground/60 mt-3 block">
                     {program.duration_days} {t("programs.days")}

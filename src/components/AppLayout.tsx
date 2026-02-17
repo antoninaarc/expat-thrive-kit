@@ -69,7 +69,7 @@ const AppLayout = () => {
               </span>
             </Link>
 
-            <nav className="flex items-center gap-0.5">
+            <nav className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide">
               {allItems.map(({ to, icon: Icon, label }) => {
                 const active = location.pathname.startsWith(to);
                 return (

@@ -81,7 +81,9 @@
     "see_all": "Ver todo",
     "explore": "Explorar",
     "continue": "Continuar",
-    "completed": "Completado ✓"
+    "completed": "Completado ✓",
+    "no_mood_data": "Aún no tienes registros de ánimo",
+    "start_journaling": "Empieza tu diario"
   },
   "journal": {
     "title": "Diario Emocional",
