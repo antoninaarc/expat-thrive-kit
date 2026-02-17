@@ -34,6 +34,17 @@ const Journal = () => {
     { value: 5, emoji: "😄", label: t("journal.mood_5") },
   ];
 
+const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+  const promptIndex = ((dayOfYear - 1) % 30) + 1;
+
+  const { data: todayPrompt } = useQuery({
+    queryKey: ["journal-prompt", promptIndex],
+    queryFn: async () => {
+      const { data } = await supabase.from("journal_prompts").select("*").eq("day_index", promptIndex).eq("active", true).maybeSingle();
+      return data;
+    },
+  });
+
   const { data: entries } = useQuery({
     queryKey: ["journal", user?.id],
     queryFn: async () => {
@@ -74,6 +85,14 @@ const Journal = () => {
       <AnimatePresence>
         {showForm && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="glass rounded-2xl p-6 space-y-5 overflow-hidden">
+            {todayPrompt && (
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 text-center">
+                <p className="text-xs text-muted-foreground mb-1">{t("journal.daily_prompt", { day: promptIndex })}</p>
+                <p className="text-sm font-medium text-foreground italic">
+                  "{locale === "es" ? todayPrompt.prompt_es : todayPrompt.prompt_en}"
+                </p>
+              </div>
+            )}
             <div>
               <label className="text-sm font-medium text-foreground mb-3 block">{t("journal.how_feel")}</label>
               <div className="flex gap-3 justify-center">

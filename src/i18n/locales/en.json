@@ -85,6 +85,7 @@
     "title": "Emotional Journal",
     "subtitle": "Record your daily emotions and observe your patterns",
     "new_entry": "New entry",
+    "daily_prompt": "Day {{day}} — Reflection prompt",
     "how_feel": "How are you feeling?",
     "main_emotion": "What is the main emotion?",
     "write_more": "Want to write more? (optional)",
