@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { motion } from "framer-motion";
 import { Heart, Leaf } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Auth = () => {
@@ -15,6 +16,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
@@ -31,6 +33,11 @@ const Auth = () => {
         navigate("/dashboard");
       }
     } else {
+      if (!consent) {
+        toast({ title: "Error", description: t("legal.consent_required", "Please accept the Terms and Privacy Policy"), variant: "destructive" });
+        setLoading(false);
+        return;
+      }
       const { error } = await signUp(email, password, displayName);
       if (error) {
         toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -75,7 +82,27 @@ const Auth = () => {
               <label className="text-sm font-medium text-foreground mb-1 block">{t("auth.password")}</label>
               <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+
+            {!isLogin && (
+              <div className="flex items-start gap-2">
+                <Checkbox
+                  id="consent"
+                  checked={consent}
+                  onCheckedChange={(checked) => setConsent(checked === true)}
+                  className="mt-1"
+                />
+                <label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
+                  <Trans i18nKey="legal.consent_checkbox"
+                    components={{
+                      terms: <Link to="/terms" className="text-primary underline hover:text-primary/80" />,
+                      privacy: <Link to="/privacy" className="text-primary underline hover:text-primary/80" />,
+                    }}
+                  />
+                </label>
+              </div>
+            )}
+
+            <Button type="submit" className="w-full" disabled={loading || (!isLogin && !consent)}>
               {loading ? t("auth.loading") : isLogin ? t("auth.submit_login") : t("auth.submit_register")}
             </Button>
           </form>

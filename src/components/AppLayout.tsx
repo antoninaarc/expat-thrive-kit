@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdmin } from "@/hooks/useAdmin";
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
+import { Trans } from "react-i18next";
 import {
   Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert,
   Library, Target, BookOpen, LogOut, Sun, ShieldCheck, MoreHorizontal, X,
@@ -133,6 +134,20 @@ const AppLayout = () => {
       <main className={`container py-6 max-w-4xl ${isMobile ? "pb-24" : ""}`}>
         <Outlet />
       </main>
+
+      {/* ═══════════ LEGAL DISCLAIMER FOOTER ═══════════ */}
+      <footer className={`border-t border-border/30 bg-muted/30 ${isMobile ? "pb-20" : ""}`}>
+        <div className="container max-w-4xl py-4 px-4 text-center">
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            <Trans i18nKey="legal.footer_disclaimer"
+              components={{
+                terms: <Link to="/terms" className="underline hover:text-foreground transition-colors" />,
+                privacy: <Link to="/privacy" className="underline hover:text-foreground transition-colors" />,
+              }}
+            />
+          </p>
+        </div>
+      </footer>
 
       {/* ═══════════ MOBILE BOTTOM TAB BAR ═══════════ */}
       {isMobile && (
