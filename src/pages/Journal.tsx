@@ -126,6 +126,31 @@ const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0,
       </AnimatePresence>
 
       <div className="space-y-3">
+        {entries?.length === 0 && !showForm && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass rounded-2xl p-6 text-center space-y-4"
+          >
+            <BookHeart className="w-14 h-14 mx-auto text-primary/30" />
+            <div>
+              <h3 className="font-display text-lg font-semibold text-foreground">{t("journal.empty_title")}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{t("journal.empty_desc")}</p>
+            </div>
+            {todayPrompt && (
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <p className="text-xs text-muted-foreground mb-1">{t("journal.daily_prompt", { day: promptIndex })}</p>
+                <p className="text-sm font-medium text-foreground italic">
+                  "{locale === "es" ? todayPrompt.prompt_es : todayPrompt.prompt_en}"
+                </p>
+              </div>
+            )}
+            <Button onClick={() => setShowForm(true)} className="mt-2">
+              <Plus className="w-4 h-4 mr-1" /> {t("journal.new_entry")}
+            </Button>
+          </motion.div>
+        )}
+
         {entries?.map((entry: any, i: number) => (
           <motion.div key={entry.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="glass rounded-xl p-4 flex items-start gap-4">
             <div className="text-3xl">{moodOptions.find((m) => m.value === entry.mood)?.emoji}</div>
@@ -142,12 +167,6 @@ const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0,
             </div>
           </motion.div>
         ))}
-        {entries?.length === 0 && (
-          <div className="text-center py-12 text-muted-foreground">
-            <BookHeart className="w-12 h-12 mx-auto mb-3 opacity-30" />
-            <p>{t("journal.empty")}</p>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -98,6 +98,8 @@
     "saving": "Saving...",
     "saved": "✨ Entry saved",
     "empty": "You don't have any entries yet. Start your journal today!",
+    "empty_title": "Your journal is waiting for you",
+    "empty_desc": "Writing about your emotions helps you understand patterns and improve your wellbeing as an expat.",
     "mood_1": "Very bad",
     "mood_2": "Bad",
     "mood_3": "Okay",
