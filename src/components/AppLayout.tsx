@@ -58,7 +58,7 @@ const AppLayout = () => {
   // }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       {/* ═══════════ DESKTOP TOP NAV ═══════════ */}
       {!isMobile && (
         <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
@@ -136,7 +136,7 @@ const AppLayout = () => {
       )}
 
       {/* ═══════════ MAIN CONTENT ═══════════ */}
-      <main className={`container py-6 max-w-4xl ${isMobile ? "pb-24" : ""}`}>
+      <main className={`container py-6 px-4 max-w-4xl mx-auto ${isMobile ? "pb-24" : ""}`}>
         <Outlet />
       </main>
 
@@ -158,19 +158,19 @@ const AppLayout = () => {
       {isMobile && (
         <>
           <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-t border-border/40 safe-area-bottom">
-            <div className="flex items-stretch justify-around h-16 px-1">
+            <div className="flex items-stretch justify-around h-16 px-2 max-w-md mx-auto">
               {primaryItems.slice(0, 4).map(({ to, icon: Icon, label }) => {
                 const active = location.pathname.startsWith(to);
                 return (
                   <Link
                     key={to}
                     to={to}
-                    className={`flex flex-col items-center justify-center flex-1 gap-0.5 transition-colors ${
+                    className={`relative flex flex-col items-center justify-center flex-1 min-w-0 gap-0.5 transition-colors ${
                       active ? "text-primary" : "text-muted-foreground"
                     }`}
                   >
-                    <Icon className={`w-5 h-5 ${active ? "text-primary" : ""}`} />
-                    <span className="text-[10px] font-medium leading-tight">{label}</span>
+                    <Icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-primary" : ""}`} />
+                    <span className="text-[10px] font-medium leading-tight truncate max-w-[56px] text-center">{label}</span>
                     {active && (
                       <motion.div
                         layoutId="mobile-tab-indicator"
@@ -189,12 +189,12 @@ const AppLayout = () => {
                 return (
                   <Link
                     to={sos.to}
-                    className={`flex flex-col items-center justify-center flex-1 gap-0.5 transition-colors ${
+                    className={`flex flex-col items-center justify-center flex-1 min-w-0 gap-0.5 transition-colors ${
                       active ? "text-primary" : "text-muted-foreground"
                     }`}
                   >
-                    <sos.icon className={`w-5 h-5 ${active ? "text-primary" : ""}`} />
-                    <span className="text-[10px] font-medium leading-tight">{sos.label}</span>
+                    <sos.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-primary" : ""}`} />
+                    <span className="text-[10px] font-medium leading-tight truncate max-w-[56px] text-center">{sos.label}</span>
                   </Link>
                 );
               })()}
@@ -202,12 +202,12 @@ const AppLayout = () => {
               {/* More button */}
               <button
                 onClick={() => setMoreOpen(true)}
-                className={`flex flex-col items-center justify-center flex-1 gap-0.5 transition-colors ${
+                className={`flex flex-col items-center justify-center flex-1 min-w-0 gap-0.5 transition-colors ${
                   moreIsActive ? "text-primary" : "text-muted-foreground"
                 }`}
               >
-                <MoreHorizontal className="w-5 h-5" />
-                <span className="text-[10px] font-medium leading-tight">{t("nav.more", "Más")}</span>
+                <MoreHorizontal className="w-5 h-5 flex-shrink-0" />
+                <span className="text-[10px] font-medium leading-tight truncate max-w-[56px] text-center">{t("nav.more", "Más")}</span>
               </button>
             </div>
           </nav>
