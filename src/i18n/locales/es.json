@@ -56,7 +56,21 @@
     "stress": "Estrés",
     "emotions": "Emociones",
     "adaptation": "Adaptación",
-    "balance": "Balance"
+    "balance": "Balance",
+    "routine_title": "Rutina Diaria",
+    "routine_desc": "Check-in y ejercicios",
+    "programs_title": "Programas Activos",
+    "no_programs": "Aún no has empezado ningún programa",
+    "start_program": "Explorar programas",
+    "day_of": "Día {{current}} de {{total}}",
+    "streak": "Racha",
+    "streak_days": "{{count}} día(s)",
+    "tip_title": "Consejo del día",
+    "tip_text": "Dedicar 2 minutos al día a tu bienestar emocional puede cambiar tu semana entera.",
+    "see_all": "Ver todo",
+    "explore": "Explorar",
+    "continue": "Continuar",
+    "completed": "Completado ✓"
   },
   "journal": {
     "title": "Diario Emocional",

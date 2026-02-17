@@ -56,7 +56,21 @@
     "stress": "Stress",
     "emotions": "Emotions",
     "adaptation": "Adaptation",
-    "balance": "Balance"
+    "balance": "Balance",
+    "routine_title": "Daily Routine",
+    "routine_desc": "Check-in & exercises",
+    "programs_title": "Active Programs",
+    "no_programs": "You haven't started any programs yet",
+    "start_program": "Explore programs",
+    "day_of": "Day {{current}} of {{total}}",
+    "streak": "Streak",
+    "streak_days": "{{count}} day(s)",
+    "tip_title": "Tip of the day",
+    "tip_text": "Spending 2 minutes a day on your emotional wellbeing can change your entire week.",
+    "see_all": "See all",
+    "explore": "Explore",
+    "continue": "Continue",
+    "completed": "Completed ✓"
   },
   "journal": {
     "title": "Emotional Journal",
