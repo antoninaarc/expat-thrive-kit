@@ -297,20 +297,34 @@ const Dashboard = () => {
       )}
 
       {/* Tip of the day */}
-      <motion.div
-        variants={item}
-        className="rounded-2xl bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] p-4 text-white"
-      >
-        <div className="flex items-start gap-3">
-          <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-            <Lightbulb className="w-5 h-5" />
-          </div>
-          <div>
-            <h3 className="font-display font-semibold text-sm mb-0.5">{t("dashboard.tip_title")}</h3>
-            <p className="text-white/80 text-xs leading-relaxed">{t("dashboard.tip_text")}</p>
-          </div>
-        </div>
-      </motion.div>
+      {(() => {
+        const dayIndex = new Date().getDay(); // 0=Sun..6=Sat
+        const tipGradients = [
+          "from-[hsl(var(--primary))] to-[hsl(var(--calm))]",
+          "from-[hsl(var(--warm))] to-[hsl(var(--coral))]",
+          "from-[hsl(var(--sage))] to-[hsl(var(--calm))]",
+          "from-[hsl(var(--coral))] to-[hsl(var(--mood-2))]",
+          "from-[hsl(var(--calm))] to-[hsl(var(--primary))]",
+          "from-[hsl(var(--mood-5))] to-[hsl(var(--sage))]",
+          "from-[hsl(var(--secondary))] to-[hsl(var(--warm))]",
+        ];
+        return (
+          <motion.div
+            variants={item}
+            className={`rounded-2xl bg-gradient-to-r ${tipGradients[dayIndex]} p-4 text-white`}
+          >
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+                <Lightbulb className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-display font-semibold text-sm mb-0.5">{t("dashboard.tip_title")}</h3>
+                <p className="text-white/80 text-xs leading-relaxed">{t(`dashboard.tips.${dayIndex}`)}</p>
+              </div>
+            </div>
+          </motion.div>
+        );
+      })()}
     </motion.div>
   );
 };

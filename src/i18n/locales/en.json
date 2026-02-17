@@ -67,6 +67,15 @@
     "streak_days": "{{count}} day(s)",
     "tip_title": "Tip of the day",
     "tip_text": "Spending 2 minutes a day on your emotional wellbeing can change your entire week.",
+    "tips": {
+      "0": "Sundays are perfect for planning your emotional week. What do you need to prioritize this week to feel good?",
+      "1": "Start Monday with intention: write one word that captures how you want to feel today and return to it if you lose track.",
+      "2": "Midweek, take a 2-minute pause. Breathe deeply 4 times and ask yourself: how am I really doing?",
+      "3": "Connecting with someone from your home country can recharge your emotional energy. Who can you message today?",
+      "4": "Thursdays are perfect for celebrating small wins. What have you achieved this week that deserves recognition?",
+      "5": "Before the weekend, release tension: shake your arms, stretch your neck, and let go of what doesn't serve you.",
+      "6": "On Saturdays, explore something new in your city. Discovering a different spot can renew your sense of belonging."
+    },
     "see_all": "See all",
     "explore": "Explore",
     "continue": "Continue",
