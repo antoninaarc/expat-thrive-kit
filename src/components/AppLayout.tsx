@@ -98,13 +98,6 @@ const AppLayout = () => {
                 );
               })}
               <LanguageSwitcher />
-              <button
-                onClick={signOut}
-                className="flex items-center gap-1.5 px-2 py-2 rounded-xl text-xs text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all duration-200 whitespace-nowrap"
-              >
-                <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">{t("nav.logout")}</span>
-              </button>
             </nav>
           </div>
         </header>
@@ -124,12 +117,6 @@ const AppLayout = () => {
             </Link>
             <div className="flex items-center gap-1">
               <LanguageSwitcher />
-              <button
-                onClick={signOut}
-                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
-              >
-                <LogOut className="w-4 h-4" />
-              </button>
             </div>
           </div>
         </header>
