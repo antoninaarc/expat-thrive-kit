@@ -15,6 +15,7 @@ import Resources from "./pages/Resources";
 import Library from "./pages/Library";
 import Programs from "./pages/Programs";
 import Admin from "./pages/Admin";
+import Feedback from "./pages/Feedback";
 import AppLayout from "./components/AppLayout";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/library" element={<Library />} />
               <Route path="/programs" element={<Programs />} />
               <Route path="/resources" element={<Resources />} />
+              <Route path="/feedback" element={<Feedback />} />
               <Route path="/admin" element={<Admin />} />
             </Route>
             <Route path="*" element={<NotFound />} />

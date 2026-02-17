@@ -429,6 +429,22 @@
     "consent_checkbox": "Acepto los <terms>Términos de Servicio</terms> y la <privacy>Política de Privacidad</privacy>, y entiendo que esta app no proporciona diagnósticos clínicos ni sustituye la atención profesional.",
     "footer_disclaimer": "Herramienta de apoyo al bienestar emocional · No es un diagnóstico clínico · <terms>Términos</terms> · <privacy>Privacidad</privacy>"
   },
+  "feedback": {
+    "title": "Feedback",
+    "subtitle": "Ayúdanos a mejorar tu experiencia",
+    "category_label": "¿Sobre qué es tu comentario?",
+    "cat_suggestion": "Sugerencia",
+    "cat_bug": "Error",
+    "cat_content": "Contenido",
+    "cat_design": "Diseño",
+    "cat_other": "Otro",
+    "message_label": "Tu mensaje",
+    "placeholder": "Cuéntanos qué podemos mejorar o qué te gustaría ver...",
+    "send": "Enviar feedback",
+    "sending": "Enviando...",
+    "success": "¡Gracias! Tu feedback nos ayuda a mejorar 💚",
+    "error": "No se pudo enviar. Inténtalo de nuevo."
+  },
   "language": {
     "switch": "Idioma",
     "en": "English",
