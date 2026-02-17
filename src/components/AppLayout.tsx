@@ -33,28 +33,28 @@ const AppLayout = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 glass border-b border-border/50">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
         <div className="container flex items-center justify-between h-14">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg gradient-calm flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-primary-foreground" />
+          <Link to="/dashboard" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl gradient-vibrant flex items-center justify-center shadow-md">
+              <Leaf className="w-4 h-4 text-white" />
             </div>
-            <span className="font-display text-lg text-foreground hidden sm:block">Expat Rooted</span>
+            <span className="font-display text-lg font-bold text-foreground hidden sm:block tracking-tight">Expat Rooted</span>
           </Link>
 
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-0.5">
             {navItems.map(({ to, icon: Icon, label }) => {
               const active = location.pathname.startsWith(to);
               return (
-                <Link key={to} to={to} className={`relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-colors ${active ? "text-primary bg-calm-light" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
+                <Link key={to} to={to} className={`relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${active ? "text-primary bg-warm-light" : "text-muted-foreground hover:text-foreground hover:bg-muted/60"}`}>
                   <Icon className="w-4 h-4" />
                   <span className="hidden sm:inline">{label}</span>
-                  {active && <motion.div layoutId="nav-indicator" className="absolute inset-0 rounded-lg bg-calm-light -z-10" transition={{ type: "spring", bounce: 0.2, duration: 0.4 }} />}
+                  {active && <motion.div layoutId="nav-indicator" className="absolute inset-0 rounded-xl bg-warm-light -z-10" transition={{ type: "spring", bounce: 0.15, duration: 0.5 }} />}
                 </Link>
               );
             })}
             <LanguageSwitcher />
-            <button onClick={signOut} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+            <button onClick={signOut} className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all duration-200">
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">{t("nav.logout")}</span>
             </button>
