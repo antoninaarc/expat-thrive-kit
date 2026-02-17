@@ -60,6 +60,7 @@ const Auth = () => {
             <span className="font-display text-2xl text-foreground">Expat Rooted</span>
           </div>
           <p className="text-muted-foreground">{t("auth.subtitle")}</p>
+          <p className="text-sm text-muted-foreground/70 mt-1">{t("auth.subtitle2")}</p>
         </div>
 
         <div className="glass rounded-2xl p-8">
