@@ -19,6 +19,8 @@ export type Database = {
           author: string
           category: string
           content: string
+          content_en: string
+          content_es: string
           cover_image_url: string | null
           created_at: string
           id: string
@@ -26,13 +28,19 @@ export type Database = {
           read_time_minutes: number
           slug: string
           summary: string
+          summary_en: string
+          summary_es: string
           title: string
+          title_en: string
+          title_es: string
           updated_at: string
         }
         Insert: {
           author?: string
           category: string
           content?: string
+          content_en?: string
+          content_es?: string
           cover_image_url?: string | null
           created_at?: string
           id?: string
@@ -40,13 +48,19 @@ export type Database = {
           read_time_minutes?: number
           slug: string
           summary?: string
+          summary_en?: string
+          summary_es?: string
           title: string
+          title_en?: string
+          title_es?: string
           updated_at?: string
         }
         Update: {
           author?: string
           category?: string
           content?: string
+          content_en?: string
+          content_es?: string
           cover_image_url?: string | null
           created_at?: string
           id?: string
@@ -54,7 +68,11 @@ export type Database = {
           read_time_minutes?: number
           slug?: string
           summary?: string
+          summary_en?: string
+          summary_es?: string
           title?: string
+          title_en?: string
+          title_es?: string
           updated_at?: string
         }
         Relationships: []
