@@ -472,5 +472,13 @@
     "phase_mastery": "Maestría emocional",
     "phase_mastery_desc": "7 días de racha, 7+ entradas de diario y 4 tests completados.",
     "motivation": "Cada pequeño paso cuenta. No necesitas ser perfecto/a, solo constante. 🌱"
+  },
+  "emotions": {
+    "happy": "Feliz",
+    "nostalgic": "Nostálgico",
+    "anxious": "Ansioso",
+    "lonely": "Solitario",
+    "overwhelmed": "Agobiado",
+    "connected": "Conectado"
   }
 }

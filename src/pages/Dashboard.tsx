@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Progress } from "@/components/ui/progress";
 import dashboardHero from "@/assets/dashboard-hero.jpg";
 import AiInsightsWidget from "@/components/AiInsightsWidget";
+import RecommendationsSection from "@/components/RecommendationsSection";
 
 const moodEmojis = ["😢", "😟", "😐", "🙂", "😄"];
 
@@ -84,7 +85,7 @@ const Dashboard = () => {
     queryFn: async () => {
       const { data } = await supabase
         .from("daily_checkins")
-        .select("checkin_date")
+        .select("checkin_date, emotion")
         .eq("user_id", user!.id)
         .order("checkin_date", { ascending: false })
         .limit(30);
@@ -119,6 +120,8 @@ const Dashboard = () => {
     }
     return count;
   })();
+
+  const lastEmotion = checkins?.[0]?.emotion || null;
 
   const recentEntries = dbEntries || [];
   const recentAssessments = dbAssessments || [];
@@ -186,6 +189,15 @@ const Dashboard = () => {
             </Link>
           </motion.div>
         ))}
+      </motion.div>
+
+      {/* Recommendations */}
+      <motion.div variants={item}>
+        <RecommendationsSection
+          lastEmotion={lastEmotion}
+          timeAbroad={profile?.time_abroad}
+          streak={streak}
+        />
       </motion.div>
 
       {/* AI Insights */}

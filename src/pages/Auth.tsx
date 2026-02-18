@@ -48,6 +48,7 @@ const Auth = () => {
         toast({ title: "Error", description: error.message, variant: "destructive" });
       } else {
         toast({ title: t("auth.account_created"), description: t("auth.check_email") });
+        // New users will be redirected to onboarding via AppLayout
       }
     }
     setLoading(false);
