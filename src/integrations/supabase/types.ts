@@ -111,6 +111,7 @@ export type Database = {
         Row: {
           checkin_date: string
           created_at: string
+          emotion: string | null
           exercise_completed: boolean
           id: string
           mood: number
@@ -121,6 +122,7 @@ export type Database = {
         Insert: {
           checkin_date?: string
           created_at?: string
+          emotion?: string | null
           exercise_completed?: boolean
           id?: string
           mood: number
@@ -131,6 +133,7 @@ export type Database = {
         Update: {
           checkin_date?: string
           created_at?: string
+          emotion?: string | null
           exercise_completed?: boolean
           id?: string
           mood?: number
@@ -257,25 +260,37 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          country_destination: string | null
+          country_origin: string | null
           created_at: string
           display_name: string | null
           id: string
+          onboarding_completed: boolean
+          time_abroad: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
           avatar_url?: string | null
+          country_destination?: string | null
+          country_origin?: string | null
           created_at?: string
           display_name?: string | null
           id?: string
+          onboarding_completed?: boolean
+          time_abroad?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
           avatar_url?: string | null
+          country_destination?: string | null
+          country_origin?: string | null
           created_at?: string
           display_name?: string | null
           id?: string
+          onboarding_completed?: boolean
+          time_abroad?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -455,6 +470,54 @@ export type Database = {
         }
         Relationships: []
       }
+      wellness_resources: {
+        Row: {
+          content_en: string
+          content_es: string
+          cover_image_url: string | null
+          created_at: string
+          duration_minutes: number
+          id: string
+          published: boolean
+          sort_order: number
+          tags: string[]
+          title_en: string
+          title_es: string
+          type: Database["public"]["Enums"]["resource_type"]
+          updated_at: string
+        }
+        Insert: {
+          content_en?: string
+          content_es?: string
+          cover_image_url?: string | null
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          published?: boolean
+          sort_order?: number
+          tags?: string[]
+          title_en?: string
+          title_es?: string
+          type?: Database["public"]["Enums"]["resource_type"]
+          updated_at?: string
+        }
+        Update: {
+          content_en?: string
+          content_es?: string
+          cover_image_url?: string | null
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          published?: boolean
+          sort_order?: number
+          tags?: string[]
+          title_en?: string
+          title_es?: string
+          type?: Database["public"]["Enums"]["resource_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -470,6 +533,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      resource_type: "article" | "meditation" | "audio" | "video" | "exercise"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -598,6 +662,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      resource_type: ["article", "meditation", "audio", "video", "exercise"],
     },
   },
 } as const
