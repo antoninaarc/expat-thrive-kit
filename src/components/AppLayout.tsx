@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdmin } from "@/hooks/useAdmin";
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { Trans } from "react-i18next";
 import {
   Leaf, LayoutDashboard, BookHeart, ClipboardCheck, ShieldAlert,
@@ -52,8 +54,22 @@ const AppLayout = () => {
     );
   }
 
+  // Check onboarding status
+  const { data: profile, isLoading: profileLoading } = useQuery({
+    queryKey: ["profile-onboarding", user?.id],
+    queryFn: async () => {
+      const { data } = await supabase.from("profiles").select("onboarding_completed").eq("user_id", user!.id).maybeSingle();
+      return data;
+    },
+    enabled: !!user,
+  });
+
   if (!user) {
     return <Navigate to="/auth" replace />;
+  }
+
+  if (!profileLoading && profile && !profile.onboarding_completed) {
+    return <Navigate to="/onboarding" replace />;
   }
 
   return (

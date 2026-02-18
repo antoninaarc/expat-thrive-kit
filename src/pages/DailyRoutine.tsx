@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Sun, Flame, CheckCircle2, Circle, Sparkles, Timer } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import FlashcardSection from "@/components/FlashcardSection";
+import EmotionCheckin, { EMOTIONS } from "@/components/EmotionCheckin";
+import RecommendationsSection from "@/components/RecommendationsSection";
 
 const DAILY_PROMPTS_ES = [
   "¿Qué es lo primero que sentiste al despertar hoy?",
@@ -90,6 +92,15 @@ const moodEmojis = [
   { value: 5, emoji: "😄" },
 ];
 
+// Streak milestone messages
+const getStreakMessage = (streak: number, isEn: boolean): string | null => {
+  if (streak === 3) return isEn ? "🔥 3 days! You're building a habit!" : "🔥 ¡3 días! ¡Estás creando un hábito!";
+  if (streak === 7) return isEn ? "⭐ 1 week streak! Amazing!" : "⭐ ¡1 semana de racha! ¡Increíble!";
+  if (streak === 15) return isEn ? "🏆 15 days! You're a wellness warrior!" : "🏆 ¡15 días! ¡Eres un guerrero del bienestar!";
+  if (streak === 30) return isEn ? "👑 30 days! You've transformed your routine!" : "👑 ¡30 días! ¡Has transformado tu rutina!";
+  return null;
+};
+
 const DailyRoutine = () => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -122,11 +133,22 @@ const DailyRoutine = () => {
   })();
 
   const [mood, setMood] = useState<number | null>(null);
+  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [thought, setThought] = useState("");
   const [exerciseDone, setExerciseDone] = useState(false);
   const [activeExercise, setActiveExercise] = useState<string | null>(null);
   const [timer, setTimer] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
+
+  // Fetch profile for time_abroad
+  const { data: profile } = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: async () => {
+      const { data } = await supabase.from("profiles").select("*").eq("user_id", user!.id).maybeSingle();
+      return data;
+    },
+    enabled: !!user,
+  });
 
   // Fetch today's checkin
   const { data: todayCheckin } = useQuery({
@@ -176,10 +198,13 @@ const DailyRoutine = () => {
 
   const saveMutation = useMutation({
     mutationFn: async () => {
+      const emoData = selectedEmotion ? EMOTIONS.find(e => e.key === selectedEmotion) : null;
+      const moodVal = emoData ? emoData.mood : (mood || 3);
       const { error } = await supabase.from("daily_checkins").upsert({
         user_id: user!.id,
         checkin_date: todayStr,
-        mood: mood!,
+        mood: moodVal,
+        emotion: selectedEmotion,
         thought: thought || null,
         prompt_index: promptIndex,
         exercise_completed: exerciseDone,
@@ -216,10 +241,12 @@ const DailyRoutine = () => {
   const alreadyDone = !!todayCheckin;
 
   const steps = [
-    { label: t("routine.step_mood"), done: alreadyDone || mood !== null },
+    { label: t("routine.step_mood"), done: alreadyDone || selectedEmotion !== null },
     { label: t("routine.step_thought"), done: alreadyDone || thought.length > 0 },
     { label: t("routine.step_exercise"), done: alreadyDone ? todayCheckin.exercise_completed : exerciseDone },
   ];
+
+  const streakMsg = getStreakMessage(streak, isEn);
 
   return (
     <div className="space-y-6">
@@ -239,6 +266,17 @@ const DailyRoutine = () => {
         </div>
       </div>
 
+      {/* Streak milestone message */}
+      {streakMsg && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="rounded-2xl bg-gradient-to-r from-[hsl(var(--warm))] to-[hsl(var(--coral))] p-4 text-white text-center"
+        >
+          <p className="font-display font-bold text-sm">{streakMsg}</p>
+        </motion.div>
+      )}
+
       {/* Progress steps */}
       <div className="flex gap-3">
         {steps.map((step, i) => (
@@ -255,7 +293,11 @@ const DailyRoutine = () => {
 
       {alreadyDone ? (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-2xl p-8 text-center space-y-3">
-          <div className="text-5xl">{moodEmojis.find(m => m.value === todayCheckin.mood)?.emoji}</div>
+          <div className="text-5xl">
+            {todayCheckin.emotion
+              ? EMOTIONS.find(e => e.key === todayCheckin.emotion)?.emoji
+              : moodEmojis.find(m => m.value === todayCheckin.mood)?.emoji}
+          </div>
           <h2 className="text-xl font-display text-foreground">{t("routine.done_title")}</h2>
           <p className="text-muted-foreground">{t("routine.done_desc")}</p>
           {todayCheckin.thought && (
@@ -263,6 +305,14 @@ const DailyRoutine = () => {
               "{todayCheckin.thought}"
             </div>
           )}
+          {/* Show recommendations after check-in */}
+          <div className="mt-6 text-left">
+            <RecommendationsSection
+              lastEmotion={todayCheckin.emotion}
+              timeAbroad={(profile as any)?.time_abroad}
+              streak={streak}
+            />
+          </div>
         </motion.div>
       ) : (
         <div className="space-y-5">
@@ -275,24 +325,23 @@ const DailyRoutine = () => {
             <p className="text-lg font-display text-foreground leading-relaxed">{todayPrompt}</p>
           </motion.div>
 
-          {/* Mood selector */}
+          {/* Emotion selector (6 visual cards) */}
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="glass rounded-2xl p-5">
             <label className="text-sm font-medium text-foreground mb-3 block">{t("routine.how_feel")}</label>
-            <div className="flex gap-3 justify-center">
-              {moodEmojis.map((opt) => (
-                <button key={opt.value} onClick={() => setMood(opt.value)} className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all ${mood === opt.value ? "bg-primary/10 ring-2 ring-primary scale-110" : "hover:bg-muted"}`}>
-                  <span className="text-3xl">{opt.emoji}</span>
-                  <span className="text-xs text-muted-foreground">{t(`journal.mood_${opt.value}`)}</span>
-                </button>
-              ))}
-            </div>
+            <EmotionCheckin selected={selectedEmotion} onSelect={setSelectedEmotion} />
           </motion.div>
 
-          {/* Thought */}
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass rounded-2xl p-5">
-            <label className="text-sm font-medium text-foreground mb-2 block">{t("routine.thought_label")}</label>
-            <Textarea value={thought} onChange={(e) => setThought(e.target.value)} placeholder={t("routine.thought_placeholder")} rows={3} />
-          </motion.div>
+          {/* Context (what happened today) */}
+          <AnimatePresence>
+            {selectedEmotion && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="glass rounded-2xl p-5">
+                <label className="text-sm font-medium text-foreground mb-2 block">
+                  {isEn ? "What happened today? (optional)" : "¿Qué pasó hoy? (opcional)"}
+                </label>
+                <Textarea value={thought} onChange={(e) => setThought(e.target.value)} placeholder={t("routine.thought_placeholder")} rows={3} />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Quick exercise */}
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass rounded-2xl p-5">
@@ -327,7 +376,7 @@ const DailyRoutine = () => {
           </motion.div>
 
           {/* Save */}
-          <Button onClick={() => saveMutation.mutate()} disabled={!mood || saveMutation.isPending} className="w-full" size="lg">
+          <Button onClick={() => saveMutation.mutate()} disabled={!selectedEmotion || saveMutation.isPending} className="w-full" size="lg">
             {saveMutation.isPending ? t("routine.saving") : t("routine.save")}
           </Button>
         </div>

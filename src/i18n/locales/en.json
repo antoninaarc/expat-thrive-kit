@@ -472,5 +472,13 @@
     "phase_mastery": "Emotional mastery",
     "phase_mastery_desc": "7-day streak, 7+ journal entries, and 4 tests completed.",
     "motivation": "Every small step counts. You don't need to be perfect, just consistent. 🌱"
+  },
+  "emotions": {
+    "happy": "Happy",
+    "nostalgic": "Nostalgic",
+    "anxious": "Anxious",
+    "lonely": "Lonely",
+    "overwhelmed": "Overwhelmed",
+    "connected": "Connected"
   }
 }
