@@ -63,7 +63,7 @@ const Auth = () => {
             <div className="w-10 h-10 rounded-xl gradient-calm flex items-center justify-center">
               <Leaf className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-display text-2xl text-foreground">Expat Rooted</span>
+            <span className="font-display text-2xl text-foreground">Rooted Abroad</span>
           </div>
           <p className="text-muted-foreground">{t("auth.subtitle")}</p>
           <p className="text-sm text-muted-foreground/70 mt-1">{t("auth.subtitle2")}</p>
