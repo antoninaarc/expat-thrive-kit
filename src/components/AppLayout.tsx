@@ -22,6 +22,16 @@ const AppLayout = () => {
   const isMobile = useIsMobile();
   const [moreOpen, setMoreOpen] = useState(false);
 
+  // Check onboarding status — must be called before any early return
+  const { data: profile, isLoading: profileLoading } = useQuery({
+    queryKey: ["profile-onboarding", user?.id],
+    queryFn: async () => {
+      const { data } = await supabase.from("profiles").select("onboarding_completed").eq("user_id", user!.id).maybeSingle();
+      return data;
+    },
+    enabled: !!user,
+  });
+
   // Primary tabs shown in bottom bar (max 5 slots: 4 main + "More")
   const primaryItems = [
     { to: "/dashboard", icon: LayoutDashboard, label: t("nav.home") },
@@ -46,7 +56,7 @@ const AppLayout = () => {
   // Check if "More" section has active route
   const moreIsActive = secondaryItems.some((item) => location.pathname.startsWith(item.to));
 
-  if (loading) {
+  if (loading || profileLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="w-8 h-8 rounded-full gradient-calm animate-pulse-soft" />
@@ -54,21 +64,11 @@ const AppLayout = () => {
     );
   }
 
-  // Check onboarding status
-  const { data: profile, isLoading: profileLoading } = useQuery({
-    queryKey: ["profile-onboarding", user?.id],
-    queryFn: async () => {
-      const { data } = await supabase.from("profiles").select("onboarding_completed").eq("user_id", user!.id).maybeSingle();
-      return data;
-    },
-    enabled: !!user,
-  });
-
   if (!user) {
     return <Navigate to="/auth" replace />;
   }
 
-  if (!profileLoading && profile && !profile.onboarding_completed) {
+  if (profile && !profile.onboarding_completed) {
     return <Navigate to="/onboarding" replace />;
   }
 
