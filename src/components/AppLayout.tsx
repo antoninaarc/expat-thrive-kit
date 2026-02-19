@@ -83,7 +83,7 @@ const AppLayout = () => {
                 <Leaf className="w-4 h-4 text-white" />
               </div>
               <span className="font-display text-lg font-bold text-foreground tracking-tight">
-                Expat Rooted
+                Rooted Abroad
               </span>
             </Link>
 
@@ -127,7 +127,7 @@ const AppLayout = () => {
                 <Leaf className="w-3.5 h-3.5 text-white" />
               </div>
               <span className="font-display text-base font-bold text-foreground tracking-tight">
-                Expat Rooted
+                Rooted Abroad
               </span>
             </Link>
             <div className="flex items-center gap-1">

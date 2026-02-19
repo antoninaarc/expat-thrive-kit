@@ -150,7 +150,7 @@ const Dashboard = () => {
           <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.5 }}>
             <div className="flex items-center gap-1.5 mb-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--warm))]" />
-              <span className="text-xs font-medium text-[hsl(var(--warm))]">Expat Rooted</span>
+              <span className="text-xs font-medium text-[hsl(var(--warm))]">Rooted Abroad</span>
             </div>
             <h1 className="text-xl sm:text-2xl text-white font-display font-bold mb-0.5">
               {t("dashboard.hello", { name: profile?.display_name?.split(" ")[0] || "Expat" })}
