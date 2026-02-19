@@ -115,7 +115,7 @@ const Onboarding = () => {
             <div className="w-10 h-10 rounded-xl gradient-calm flex items-center justify-center">
               <Leaf className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-display text-2xl text-foreground">Expat Rooted</span>
+            <span className="font-display text-2xl text-foreground">Rooted Abroad</span>
           </div>
           {/* Progress dots */}
           <div className="flex justify-center gap-2 mb-2">

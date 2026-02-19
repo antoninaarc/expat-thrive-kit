@@ -65,7 +65,7 @@ const ArticlesTab = () => {
     },
   });
 
-  const blank = { title: "", slug: "", category: "bienestar", summary: "", content: "", author: "Expat Rooted", published: false, read_time_minutes: 5, cover_image_url: "" };
+  const blank = { title: "", slug: "", category: "bienestar", summary: "", content: "", author: "Rooted Abroad", published: false, read_time_minutes: 5, cover_image_url: "" };
 
   if (editing) {
     return (
@@ -539,7 +539,7 @@ const Admin = () => {
         <h1 className="text-2xl font-display font-bold flex items-center gap-2">
           <ShieldCheck className="w-7 h-7 text-primary" /> Panel Admin
         </h1>
-        <p className="text-muted-foreground text-sm mt-1">Gestiona el contenido de Expat Rooted</p>
+        <p className="text-muted-foreground text-sm mt-1">Gestiona el contenido de Rooted Abroad</p>
       </div>
 
       <Tabs defaultValue="articles">
