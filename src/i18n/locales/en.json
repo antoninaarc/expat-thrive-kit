@@ -44,7 +44,13 @@
     "check_email": "Check your email to confirm your account.",
     "footer": "Made with love for the expat community",
     "or": "or",
-    "google_signin": "Continue with Google"
+    "google_signin": "Continue with Google",
+    "forgot_password": "Forgot your password?",
+    "forgot_desc": "Enter your email and we'll send you a reset link.",
+    "send_reset": "Send reset link",
+    "back_to_login": "Back to login",
+    "reset_sent": "Email sent",
+    "reset_sent_desc": "Check your email for the reset link."
   },
   "dashboard": {
     "hello": "Hello, {{name}} 👋",

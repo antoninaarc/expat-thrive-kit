@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLogin, setIsLogin] = useState(true);
+  const [isForgot, setIsForgot] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -26,6 +28,24 @@ const Auth = () => {
   useEffect(() => {
     if (user) navigate("/dashboard", { replace: true });
   }, [user, navigate]);
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({
+        title: t("auth.reset_sent", "Email sent"),
+        description: t("auth.reset_sent_desc", "Check your email for the reset link."),
+      });
+      setIsForgot(false);
+    }
+    setLoading(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +68,6 @@ const Auth = () => {
         toast({ title: "Error", description: error.message, variant: "destructive" });
       } else {
         toast({ title: t("auth.account_created"), description: t("auth.check_email") });
-        // New users will be redirected to onboarding via AppLayout
       }
     }
     setLoading(false);
@@ -70,6 +89,24 @@ const Auth = () => {
         </div>
 
         <div className="glass rounded-2xl p-8">
+          {isForgot ? (
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <p className="text-sm text-muted-foreground mb-2">
+                {t("auth.forgot_desc", "Enter your email and we'll send you a reset link.")}
+              </p>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-1 block">{t("auth.email")}</label>
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("auth.email_placeholder")} required />
+              </div>
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? t("auth.loading") : t("auth.send_reset", "Send reset link")}
+              </Button>
+              <button type="button" onClick={() => setIsForgot(false)} className="text-xs text-primary hover:underline w-full text-center">
+                {t("auth.back_to_login", "Back to login")}
+              </button>
+            </form>
+          ) : (
+          <>
           <div className="flex gap-2 mb-6">
             <Button variant={isLogin ? "default" : "ghost"} className="flex-1" onClick={() => setIsLogin(true)}>{t("auth.login")}</Button>
             <Button variant={!isLogin ? "default" : "ghost"} className="flex-1" onClick={() => setIsLogin(false)}>{t("auth.register")}</Button>
@@ -89,6 +126,16 @@ const Auth = () => {
               <label className="text-sm font-medium text-foreground mb-1 block">{t("auth.password")}</label>
               <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} />
             </div>
+
+            {isLogin && (
+              <button
+                type="button"
+                onClick={() => setIsForgot(true)}
+                className="text-xs text-primary hover:underline"
+              >
+                {t("auth.forgot_password", "¿Olvidaste tu contraseña?")}
+              </button>
+            )}
 
             {!isLogin && (
               <div className="flex items-start gap-2">
@@ -140,6 +187,8 @@ const Auth = () => {
             </svg>
             {t("auth.google_signin", "Continuar con Google")}
           </Button>
+          </>
+          )}
         </div>
 
         <p className="text-center mt-6 text-sm text-muted-foreground flex items-center justify-center gap-1">

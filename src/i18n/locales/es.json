@@ -44,7 +44,13 @@
     "check_email": "Revisa tu email para confirmar tu cuenta.",
     "footer": "Hecho con cariño para la comunidad expat",
     "or": "o",
-    "google_signin": "Continuar con Google"
+    "google_signin": "Continuar con Google",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "forgot_desc": "Ingresa tu email y te enviaremos un enlace para restablecer tu contraseña.",
+    "send_reset": "Enviar enlace",
+    "back_to_login": "Volver al login",
+    "reset_sent": "Email enviado",
+    "reset_sent_desc": "Revisa tu email para el enlace de restablecimiento."
   },
   "dashboard": {
     "hello": "Hola, {{name}} 👋",
