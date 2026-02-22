@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ const Onboarding = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const { t, i18n } = useTranslation();
   const isEn = i18n.language?.startsWith("en");
 
@@ -45,6 +47,7 @@ const Onboarding = () => {
     if (error) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     } else {
+      await queryClient.invalidateQueries({ queryKey: ["profile-onboarding"] });
       navigate("/dashboard", { replace: true });
     }
     setSaving(false);
