@@ -54,8 +54,6 @@ const Auth = () => {
       const { error } = await signIn(email, password);
       if (error) {
         toast({ title: "Error", description: error.message, variant: "destructive" });
-      } else {
-        navigate("/dashboard");
       }
     } else {
       if (!consent) {
