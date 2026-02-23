@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { ShieldCheck, Plus, Trash2, Save, BookOpen, Lightbulb, MessageSquare, Layers, MessageSquareHeart } from "lucide-react";
+import { ShieldCheck, Plus, Trash2, Save, BookOpen, Lightbulb, MessageSquare, Layers, MessageSquareHeart, ClipboardCheck } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Navigate } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 
@@ -518,6 +520,121 @@ const FeedbackTab = () => {
   );
 };
 
+/* ───────────── ASSESSMENTS TAB ───────────── */
+const AssessmentsTab = () => {
+  const [filterType, setFilterType] = useState<string>("all");
+
+  const { data: results, isLoading } = useQuery({
+    queryKey: ["admin-assessments"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("assessment_results")
+        .select("*")
+        .order("created_at", { ascending: false });
+      return data || [];
+    },
+  });
+
+  const { data: profiles } = useQuery({
+    queryKey: ["admin-profiles"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("user_id, display_name");
+      return data || [];
+    },
+  });
+
+  const profileMap = (profiles || []).reduce((acc: Record<string, string>, p: any) => {
+    acc[p.user_id] = p.display_name || "Sin nombre";
+    return acc;
+  }, {});
+
+  const typeLabels: Record<string, string> = {
+    stress: "Estrés",
+    emotional_regulation: "Regulación Emocional",
+    cultural_adaptation: "Adaptación Cultural",
+    work_life_balance: "Balance Vida-Trabajo",
+  };
+
+  const filtered = filterType === "all"
+    ? results || []
+    : (results || []).filter((r: any) => r.assessment_type === filterType);
+
+  const totalTests = filtered.length;
+  const avgScore = totalTests > 0
+    ? Math.round(filtered.reduce((sum: number, r: any) => sum + (r.score / r.max_score) * 100, 0) / totalTests)
+    : 0;
+  const uniqueUsers = new Set(filtered.map((r: any) => r.user_id)).size;
+
+  if (isLoading) return <p className="text-center text-muted-foreground py-8">Cargando resultados...</p>;
+
+  return (
+    <div className="space-y-4">
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="glass rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-foreground">{totalTests}</p>
+          <p className="text-xs text-muted-foreground">Tests completados</p>
+        </div>
+        <div className="glass rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-foreground">{avgScore}%</p>
+          <p className="text-xs text-muted-foreground">Promedio</p>
+        </div>
+        <div className="glass rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-foreground">{uniqueUsers}</p>
+          <p className="text-xs text-muted-foreground">Usuarios</p>
+        </div>
+      </div>
+
+      {/* Filter */}
+      <Select value={filterType} onValueChange={setFilterType}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Filtrar por tipo" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Todos los tipos</SelectItem>
+          {Object.entries(typeLabels).map(([key, label]) => (
+            <SelectItem key={key} value={key}>{label}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      {/* Results table */}
+      <div className="glass rounded-xl overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-xs">Usuario</TableHead>
+              <TableHead className="text-xs">Tipo</TableHead>
+              <TableHead className="text-xs text-right">Score</TableHead>
+              <TableHead className="text-xs text-right">Fecha</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filtered.map((r: any) => (
+              <TableRow key={r.id}>
+                <TableCell className="text-xs">
+                  <div>
+                    <p className="font-medium text-foreground">{profileMap[r.user_id] || "Desconocido"}</p>
+                    <p className="text-[10px] text-muted-foreground font-mono">{r.user_id.slice(0, 8)}…</p>
+                  </div>
+                </TableCell>
+                <TableCell className="text-xs">{typeLabels[r.assessment_type] || r.assessment_type}</TableCell>
+                <TableCell className="text-xs text-right font-medium">{Math.round((r.score / r.max_score) * 100)}%</TableCell>
+                <TableCell className="text-xs text-right text-muted-foreground">
+                  {new Date(r.created_at).toLocaleDateString("es", { day: "numeric", month: "short" })}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        {filtered.length === 0 && <p className="text-center text-muted-foreground py-8">No hay resultados</p>}
+      </div>
+    </div>
+  );
+};
+
 /* ───────────── MAIN ADMIN PAGE ───────────── */
 const Admin = () => {
   const { user } = useAuth();
@@ -543,18 +660,20 @@ const Admin = () => {
       </div>
 
       <Tabs defaultValue="articles">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="articles" className="text-xs"><BookOpen className="w-4 h-4 mr-1" /> Artículos</TabsTrigger>
           <TabsTrigger value="prompts" className="text-xs"><MessageSquare className="w-4 h-4 mr-1" /> Prompts</TabsTrigger>
           <TabsTrigger value="tips" className="text-xs"><Lightbulb className="w-4 h-4 mr-1" /> Tips</TabsTrigger>
           <TabsTrigger value="programs" className="text-xs"><Layers className="w-4 h-4 mr-1" /> Programas</TabsTrigger>
           <TabsTrigger value="feedback" className="text-xs"><MessageSquareHeart className="w-4 h-4 mr-1" /> Feedback</TabsTrigger>
+          <TabsTrigger value="tests" className="text-xs"><ClipboardCheck className="w-4 h-4 mr-1" /> Tests</TabsTrigger>
         </TabsList>
         <TabsContent value="articles"><ArticlesTab /></TabsContent>
         <TabsContent value="prompts"><PromptsTab /></TabsContent>
         <TabsContent value="tips"><TipsTab /></TabsContent>
         <TabsContent value="programs"><ProgramsTab /></TabsContent>
         <TabsContent value="feedback"><FeedbackTab /></TabsContent>
+        <TabsContent value="tests"><AssessmentsTab /></TabsContent>
       </Tabs>
     </div>
   );
