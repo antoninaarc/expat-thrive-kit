@@ -71,7 +71,7 @@ const flashcards: Flashcard[] = [
     icon: <Ghost className="w-8 h-8" />,
     category: "Soledad",
     frontTitle: "¿Te sientes invisible aquí?",
-    frontMessage: "Construir un círculo social desde cero es agotador. La soledad del expat es real: estás rodeado de gente pero sin nadie que te conozca de verdad. Eso cambiará.",
+    frontMessage: "Construir un círculo social desde cero es agotador. La soledad del people living abroad es real: estás rodeado de gente pero sin nadie que te conozca de verdad. Eso cambiará.",
     backTitle: "Ejercicio: Puente de Conexión 🌉",
     backExercise: [
       "Piensa en una persona aquí con quien hayas tenido una conversación agradable.",

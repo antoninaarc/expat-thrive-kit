@@ -42,7 +42,7 @@ const Onboarding = () => {
       .from("profiles")
       .update({
         country_origin: countryOrigin,
-        country_destination: "Netherlands",
+        country_destination: "your new country",
         time_abroad: timeAbroad,
         onboarding_completed: true,
       })
@@ -83,7 +83,7 @@ const Onboarding = () => {
     },
     {
       icon: Clock,
-      title: isEn ? "How long have you been in the Netherlands?" : "¿Hace cuánto vives en Holanda?",
+      title: isEn ? "How long have you been in the your new country?" : "¿Hace cuánto vives en tu nuevo país?",
       subtitle: isEn ? "Time since you moved" : "Tiempo desde que te mudaste",
       content: (
         <div className="grid grid-cols-1 gap-3">

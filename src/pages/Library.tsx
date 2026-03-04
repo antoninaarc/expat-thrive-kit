@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input";
 import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
 
-const CATEGORY_KEYS = ["all", "mente", "emociones", "vida-expat", "amor-relaciones", "crecimiento", "psicologia"];
+const CATEGORY_KEYS = ["all", "mente", "emociones", "vida-people living abroad", "amor-relaciones", "crecimiento", "psicologia"];
 const CATEGORY_EMOJIS: Record<string, string> = {
-  all: "📚", mente: "🧠", emociones: "💛", "vida-expat": "✈️",
+  all: "📚", mente: "🧠", emociones: "💛", "vida-people living abroad": "✈️",
   "amor-relaciones": "❤️", crecimiento: "🌱", psicologia: "🔬",
 };
 
@@ -41,7 +41,7 @@ const Library = () => {
 
   const CAT_I18N: Record<string, string> = {
     all: "library.cat_all", mente: "library.cat_mente", emociones: "library.cat_emociones",
-    "vida-expat": "library.cat_vida_expat", "amor-relaciones": "library.cat_amor",
+    "vida-people living abroad": "library.cat_vida_people living abroad", "amor-relaciones": "library.cat_amor",
     crecimiento: "library.cat_crecimiento", psicologia: "library.cat_psicologia",
   };
   const getCatLabel = (key: string) => t(CAT_I18N[key] || key);

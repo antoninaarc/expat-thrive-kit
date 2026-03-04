@@ -59,7 +59,7 @@ const sections: Section[] = [
       {
         titleKey: "resources.community_internations_title",
         descKey: "resources.community_internations_desc",
-        url: "https://www.internations.org/netherlands-expats",
+        url: "https://www.internations.org/netherlands-people living abroads",
         icon: <Users className="w-5 h-5" />,
         tagKey: "resources.community_internations_tag",
         tagColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
@@ -67,7 +67,7 @@ const sections: Section[] = [
       {
         titleKey: "resources.community_meetup_title",
         descKey: "resources.community_meetup_desc",
-        url: "https://www.meetup.com/find/?keywords=expat&location=nl",
+        url: "https://www.meetup.com/find/?keywords=people living abroad&location=nl",
         icon: <Globe className="w-5 h-5" />,
         tagKey: "resources.community_meetup_tag",
         tagColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
@@ -75,7 +75,7 @@ const sections: Section[] = [
       {
         titleKey: "resources.community_reddit_title",
         descKey: "resources.community_reddit_desc",
-        url: "https://www.reddit.com/r/Netherlands/",
+        url: "https://www.reddit.com/r/your new country/",
         icon: <MessageCircle className="w-5 h-5" />,
         tagKey: "resources.community_reddit_tag",
         tagColor: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
