@@ -147,7 +147,7 @@ const Library = () => {
           />
         )}
 
-        <article>
+        <article className="article-content">
           <ReactMarkdown components={MarkdownComponents}>
             {localContent(selectedArticle)}
           </ReactMarkdown>
