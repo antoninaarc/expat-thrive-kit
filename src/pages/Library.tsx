@@ -77,7 +77,7 @@ const Library = () => {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="space-y-6"
+        className="space-y-6 max-w-2xl mx-auto"
       >
         <button
           onClick={() => setSelectedArticle(null)}
@@ -107,12 +107,27 @@ const Library = () => {
           <img
             src={selectedArticle.cover_image_url}
             alt={selectedArticle.title}
-            className="w-full h-64 object-cover rounded-2xl"
+            className="w-full h-72 object-cover rounded-2xl"
           />
         )}
 
-        <article className="prose prose-neutral dark:prose-invert max-w-none">
-          <ReactMarkdown>{localContent(selectedArticle)}</ReactMarkdown>
+        <article className="space-y-2">
+          <ReactMarkdown
+            components={{
+              h1: ({children}) => <h1 className="text-3xl font-bold mt-10 mb-5 text-foreground">{children}</h1>,
+              h2: ({children}) => <h2 className="text-2xl font-semibold mt-10 mb-4 text-foreground border-b border-border pb-2">{children}</h2>,
+              h3: ({children}) => <h3 className="text-xl font-semibold mt-8 mb-3 text-primary">{children}</h3>,
+              p: ({children}) => <p className="text-base leading-8 mb-5 text-foreground/90">{children}</p>,
+              strong: ({children}) => <strong className="font-semibold text-foreground">{children}</strong>,
+              ol: ({children}) => <ol className="list-decimal pl-6 mb-5 space-y-3">{children}</ol>,
+              ul: ({children}) => <ul className="list-disc pl-6 mb-5 space-y-3">{children}</ul>,
+              li: ({children}) => <li className="text-base leading-7 text-foreground/90">{children}</li>,
+              em: ({children}) => <em className="italic text-foreground/80">{children}</em>,
+              blockquote: ({children}) => <blockquote className="border-l-4 border-primary pl-4 my-6 italic text-foreground/70">{children}</blockquote>,
+            }}
+          >
+            {localContent(selectedArticle)}
+          </ReactMarkdown>
         </article>
       </motion.div>
     );
@@ -129,7 +144,6 @@ const Library = () => {
         </p>
       </div>
 
-      {/* Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
@@ -140,7 +154,6 @@ const Library = () => {
         />
       </div>
 
-      {/* Category chips */}
       <div className="flex gap-2 flex-wrap">
         {CATEGORY_KEYS.map((key) => (
           <button
@@ -157,7 +170,6 @@ const Library = () => {
         ))}
       </div>
 
-      {/* Articles grid */}
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1, 2, 3, 4].map((i) => (
