@@ -32,6 +32,42 @@ interface Article {
   created_at: string;
 }
 
+const MarkdownComponents = {
+  h1: ({children}: any) => (
+    <h1 style={{fontSize:"2rem", fontWeight:"700", marginTop:"2.5rem", marginBottom:"1.5rem", color:"var(--foreground)", lineHeight:"1.2"}}>{children}</h1>
+  ),
+  h2: ({children}: any) => (
+    <div style={{marginTop:"3rem", marginBottom:"1.2rem"}}>
+      <div style={{width:"2rem", height:"3px", backgroundColor:"var(--primary)", borderRadius:"2px", marginBottom:"0.75rem"}}></div>
+      <h2 style={{fontSize:"1.35rem", fontWeight:"700", color:"var(--foreground)", lineHeight:"1.3"}}>{children}</h2>
+    </div>
+  ),
+  h3: ({children}: any) => (
+    <h3 style={{fontSize:"1.1rem", fontWeight:"700", marginTop:"2rem", marginBottom:"0.75rem", color:"hsl(var(--primary))"}}>{children}</h3>
+  ),
+  p: ({children}: any) => (
+    <p style={{fontSize:"1rem", lineHeight:"1.9", marginBottom:"1.4rem", color:"var(--foreground)", opacity:0.88}}>{children}</p>
+  ),
+  strong: ({children}: any) => (
+    <strong style={{fontWeight:"700", color:"var(--foreground)"}}>{children}</strong>
+  ),
+  em: ({children}: any) => (
+    <em style={{fontStyle:"italic", opacity:0.8}}>{children}</em>
+  ),
+  ol: ({children}: any) => (
+    <ol style={{paddingLeft:"1.75rem", marginBottom:"1.4rem", listStyleType:"decimal"}}>{children}</ol>
+  ),
+  ul: ({children}: any) => (
+    <ul style={{paddingLeft:"1.75rem", marginBottom:"1.4rem", listStyleType:"disc"}}>{children}</ul>
+  ),
+  li: ({children}: any) => (
+    <li style={{fontSize:"1rem", lineHeight:"1.8", marginBottom:"0.5rem", opacity:0.88}}>{children}</li>
+  ),
+  blockquote: ({children}: any) => (
+    <blockquote style={{borderLeft:"4px solid hsl(var(--primary))", paddingLeft:"1.25rem", margin:"2rem 0", fontStyle:"italic", opacity:0.75}}>{children}</blockquote>
+  ),
+};
+
 const Library = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -77,24 +113,24 @@ const Library = () => {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="space-y-6 max-w-2xl mx-auto"
+        className="max-w-2xl mx-auto"
       >
         <button
           onClick={() => setSelectedArticle(null)}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
         >
           <ArrowLeft className="w-4 h-4" /> {t("library.back")}
         </button>
 
-        <div>
+        <div className="mb-6">
           <span className="text-xs font-medium uppercase tracking-wider text-primary">
             {CATEGORY_EMOJIS[selectedArticle.category]}{" "}
             {getCatLabel(selectedArticle.category)}
           </span>
-          <h1 className="text-3xl font-display font-bold text-foreground mt-2">
+          <h1 className="text-3xl font-display font-bold text-foreground mt-2 leading-tight">
             {localTitle(selectedArticle)}
           </h1>
-          <div className="flex items-center gap-3 mt-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3 mt-3 text-sm text-muted-foreground">
             <span>{selectedArticle.author}</span>
             <span>•</span>
             <span className="flex items-center gap-1">
@@ -107,25 +143,12 @@ const Library = () => {
           <img
             src={selectedArticle.cover_image_url}
             alt={selectedArticle.title}
-            className="w-full h-72 object-cover rounded-2xl"
+            className="w-full h-72 object-cover rounded-2xl mb-8"
           />
         )}
 
-        <article className="space-y-2">
-          <ReactMarkdown
-            components={{
-              h1: ({children}) => <h1 className="text-3xl font-bold mt-10 mb-5 text-foreground">{children}</h1>,
-              h2: ({children}) => <h2 className="text-2xl font-semibold mt-10 mb-4 text-foreground border-b border-border pb-2">{children}</h2>,
-              h3: ({children}) => <h3 className="text-xl font-semibold mt-8 mb-3 text-primary">{children}</h3>,
-              p: ({children}) => <p className="text-base leading-8 mb-5 text-foreground/90">{children}</p>,
-              strong: ({children}) => <strong className="font-semibold text-foreground">{children}</strong>,
-              ol: ({children}) => <ol className="list-decimal pl-6 mb-5 space-y-3">{children}</ol>,
-              ul: ({children}) => <ul className="list-disc pl-6 mb-5 space-y-3">{children}</ul>,
-              li: ({children}) => <li className="text-base leading-7 text-foreground/90">{children}</li>,
-              em: ({children}) => <em className="italic text-foreground/80">{children}</em>,
-              blockquote: ({children}) => <blockquote className="border-l-4 border-primary pl-4 my-6 italic text-foreground/70">{children}</blockquote>,
-            }}
-          >
+        <article>
+          <ReactMarkdown components={MarkdownComponents}>
             {localContent(selectedArticle)}
           </ReactMarkdown>
         </article>
@@ -139,9 +162,7 @@ const Library = () => {
         <h1 className="text-3xl font-display font-bold text-foreground flex items-center gap-2">
           <BookOpen className="w-8 h-8 text-primary" /> {t("library.title")}
         </h1>
-        <p className="text-muted-foreground mt-1">
-          {t("library.subtitle")}
-        </p>
+        <p className="text-muted-foreground mt-1">{t("library.subtitle")}</p>
       </div>
 
       <div className="relative">
